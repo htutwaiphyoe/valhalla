@@ -1,0 +1,16 @@
+Folder structure
+
+config => configuration files
+controller => api routes handlers
+components => react components
+pages => web pages
+pages/api => api routes
+public => static files
+
+next-connect package is a routing and middleware for nextjs and make api routes handlers easily like ExpressJS.
+
+postman is used to test API. First create environment for project and then create collection for project and save API enpoints
+in there.
+
+mongoose is used for database. create dbConnect file in config for database connection. add environment variables in next.config.js.
+In express, connection is in app.js but in nextjs, each api has to call connection method (dbConnect)
