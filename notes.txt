@@ -3,6 +3,7 @@ Folder structure
 config => configuration files
 controller => api routes handlers
 components => react components
+models => model for database
 pages => web pages
 pages/api => api routes
 public => static files
@@ -14,3 +15,7 @@ in there.
 
 mongoose is used for database. create dbConnect file in config for database connection. add environment variables in next.config.js.
 In express, connection is in app.js but in nextjs, each api has to call connection method (dbConnect)
+
+In nextjs, mongoose model needs to return existing model if it is already created. mongoose.models.ModelName || mongoose.model("Model", schema) is needed
+in export default. If the condition is not included, it will return error.
+

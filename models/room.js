@@ -8,7 +8,7 @@ const roomSchema = new mongoose.Schema({
         maxLength: [100, "Room name must be at most 100 characters"],
     },
 
-    price: {
+    pricePerNight: {
         type: Number,
         required: [true, "Please enter room price"],
         default: 0.0,
@@ -118,7 +118,7 @@ const roomSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
-        required: true,
+        required: false,
     },
 
     createdAt: {
@@ -128,4 +128,4 @@ const roomSchema = new mongoose.Schema({
 });
 
 // return existing model if it is already created
-export default mongoose.model.Room || mongoose.model("Room", roomSchema);
+export default mongoose.models.Room || mongoose.model("Room", roomSchema);
