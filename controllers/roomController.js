@@ -5,6 +5,7 @@ const getAllRooms = async (req, res) => {
         const rooms = await Room.find();
         res.status(200).json({
             status: "success",
+            results: rooms.length,
             data: {
                 data: rooms,
             },

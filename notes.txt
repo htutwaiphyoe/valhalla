@@ -19,3 +19,7 @@ In express, connection is in app.js but in nextjs, each api has to call connecti
 In nextjs, mongoose model needs to return existing model if it is already created. mongoose.models.ModelName || mongoose.model("Model", schema) is needed
 in export default. If the condition is not included, it will return error.
 
+seeder.js is created to add all rooms into database. To run that file, need npm script in package.json with the command
+"node utils/seeder". We have to use node command to run and if we use node command, we have to change import to require.
+
+we can retrieve json data from .json by importing it
