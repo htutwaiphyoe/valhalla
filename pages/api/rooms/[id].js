@@ -1,7 +1,7 @@
 import nc from "next-connect";
 
 import dbConnect from "../../../config/dbConnect";
-import { getSingleRoom } from "../../../controllers/roomController";
+import { getSingleRoom, updateSingleRoom } from "../../../controllers/roomController";
 
 const handler = nc();
 
@@ -9,6 +9,6 @@ const handler = nc();
 dbConnect();
 
 // routes
-handler.get(getSingleRoom);
+handler.get(getSingleRoom).patch(updateSingleRoom);
 
 export default handler;

@@ -23,3 +23,7 @@ seeder.js is created to add all rooms into database. To run that file, need npm 
 "node utils/seeder". We have to use node command to run and if we use node command, we have to change import to require.
 
 we can retrieve json data from .json by importing it
+
+get query params in url with req.query. handle room not found error for invalid id with right format
+
+findByIdAndUpdate gives null with invalid id with right format. 

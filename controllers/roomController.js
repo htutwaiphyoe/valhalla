@@ -23,7 +23,7 @@ const getAllRooms = async (req, res) => {
 const createNewRoom = async (req, res) => {
     try {
         const newRoom = await Room.create(req.body);
-        res.status(200).json({
+        res.status(201).json({
             status: "success",
             data: {
                 data: newRoom,
@@ -60,4 +60,31 @@ const getSingleRoom = async (req, res) => {
         });
     }
 };
-export { getAllRooms, createNewRoom, getSingleRoom };
+
+// PATCH => /api/rooms/[id]
+const updateSingleRoom = async (req, res) => {
+    try {
+        const updatedRoom = await Room.findByIdAndUpdate(req.query.id, req.body, {
+            new: true,
+            runValidators: true,
+        });
+        if (!updatedRoom) {
+            return res.status(404).json({
+                status: "fail",
+                message: "Room not found with that id",
+            });
+        }
+        res.status(200).json({
+            status: "success",
+            data: {
+                data: updatedRoom,
+            },
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: "fail",
+            error: err,
+        });
+    }
+};
+export { getAllRooms, createNewRoom, getSingleRoom, updateSingleRoom };
