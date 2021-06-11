@@ -34,3 +34,6 @@ create custom error class in utils folder, status means code in next.
 
 like express, next-connect provides global error middleware which is a error-first function with 4 paramenters. If any middleware throws an error
 it will execute. To throw an error, use throw or next() function. To catch all errors, give that middleware in nc({ onError }) option of next-connect
+
+create catch async error middleware and handle validation error and cast error. make sure to show different errors for
+production and development mode
