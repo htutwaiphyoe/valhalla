@@ -19,6 +19,18 @@ class APIFeatures {
         this.dbQuery = this.dbQuery.find(location);
         return this;
     }
+
+    filter() {
+        const urlQueryCopy = { ...this.urlQuery };
+        // remove fields from url query
+
+        const removedFields = ["location"];
+        removedFields.forEach((el) => delete urlQueryCopy[el]);
+
+        // chain database query
+        this.dbQuery = this.dbQuery.find(urlQueryCopy);
+        return this;
+    }
 }
 
 export default APIFeatures;

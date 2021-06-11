@@ -6,8 +6,8 @@ import APIFeatures from "../utils/apiFeatures";
 // GET => /api/rooms
 const getAllRooms = catchAsyncError(async (req, res, next) => {
     // get query
-    const apiFeatures = new APIFeatures(Room.find(), req.query).search();
-    
+    const apiFeatures = new APIFeatures(Room.find(), req.query).search().filter();
+
     // execute query
     const rooms = await apiFeatures.dbQuery;
 
