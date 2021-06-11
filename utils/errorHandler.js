@@ -1,10 +1,9 @@
 class ErrorHandler extends Error {
-    constructor(message, statusCode, status) {
+    constructor(message, statusCode) {
         super(message);
-        this.status = status || "error";
-        this.statusCode = statusCode || 500;
+        this.statusCode = statusCode;
+        this.statusText = `${statusCode}`.startsWith("4") ? "fail" : "error";
         this.isOperational = true;
-
         Error.captureStackTrace(this, this.constructor);
     }
 }

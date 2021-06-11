@@ -43,7 +43,7 @@ const getSingleRoom = async (req, res, next) => {
     try {
         const room = await Room.findById(req.query.id);
         if (!room) {
-            return next(new ErrorHandler("Room not found with that id", 404, "fail"));
+            return next(new ErrorHandler("Room not found with that id", 404));
         }
         res.status(200).json({
             status: "success",
@@ -60,14 +60,14 @@ const getSingleRoom = async (req, res, next) => {
 };
 
 // PATCH => /api/rooms/[id]
-const updateSingleRoom = async (req, res) => {
+const updateSingleRoom = async (req, res, next) => {
     try {
         const updatedRoom = await Room.findByIdAndUpdate(req.query.id, req.body, {
             new: true,
             runValidators: true,
         });
         if (!updatedRoom) {
-            return next(new ErrorHandler("Room not found with that id", 404, "fail"));
+            return next(new ErrorHandler("Room not found with that id", 404));
         }
         res.status(200).json({
             status: "success",
@@ -84,12 +84,12 @@ const updateSingleRoom = async (req, res) => {
 };
 
 // DELETE => /api/rooms/[id]
-const deleteSingleRoom = async (req, res) => {
+const deleteSingleRoom = async (req, res, next) => {
     try {
         const deletedRoom = await Room.findByIdAndDelete(req.query.id);
 
         if (!deletedRoom) {
-            return next(new ErrorHandler("Room not found with that id", 404, "fail"));
+            return next(new ErrorHandler("Room not found with that id", 404));
         }
         res.status(204).json({
             status: "success",

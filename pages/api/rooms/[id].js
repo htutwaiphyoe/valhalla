@@ -6,8 +6,9 @@ import {
     updateSingleRoom,
     deleteSingleRoom,
 } from "../../../controllers/roomController";
+import onError from "../../../middlewares/globalError";
 
-const handler = nc();
+const handler = nc({ onError });
 
 // connect database
 dbConnect();
