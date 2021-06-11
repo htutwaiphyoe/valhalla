@@ -1,4 +1,5 @@
 import Room from "../models/room";
+import ErrorHandler from "../utils/errorHandler";
 
 // GET => /api/rooms
 const getAllRooms = async (req, res) => {
@@ -38,14 +39,11 @@ const createNewRoom = async (req, res) => {
 };
 
 // GET => /api/rooms/[id]
-const getSingleRoom = async (req, res) => {
+const getSingleRoom = async (req, res, next) => {
     try {
         const room = await Room.findById(req.query.id);
         if (!room) {
-            return res.status(404).json({
-                status: "fail",
-                message: "Room not found with that id",
-            });
+            return next(new ErrorHandler("Room not found with that id", 404, "fail"));
         }
         res.status(200).json({
             status: "success",
@@ -69,10 +67,7 @@ const updateSingleRoom = async (req, res) => {
             runValidators: true,
         });
         if (!updatedRoom) {
-            return res.status(404).json({
-                status: "fail",
-                message: "Room not found with that id",
-            });
+            return next(new ErrorHandler("Room not found with that id", 404, "fail"));
         }
         res.status(200).json({
             status: "success",
@@ -94,10 +89,7 @@ const deleteSingleRoom = async (req, res) => {
         const deletedRoom = await Room.findByIdAndDelete(req.query.id);
 
         if (!deletedRoom) {
-            return res.status(404).json({
-                status: "fail",
-                message: "Room not found with that id",
-            });
+            return next(new ErrorHandler("Room not found with that id", 404, "fail"));
         }
         res.status(204).json({
             status: "success",

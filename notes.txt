@@ -26,4 +26,6 @@ we can retrieve json data from .json by importing it
 
 get query params in url with req.query. handle room not found error for invalid id with right format
 
-findByIdAndUpdate gives null with invalid id with right format. 
+findByIdAndUpdate gives null with invalid id with right format.
+
+findByIdAndDelete also gives null with invalid id with right format and give deleted data if success.
