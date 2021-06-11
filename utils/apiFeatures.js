@@ -24,11 +24,24 @@ class APIFeatures {
         const urlQueryCopy = { ...this.urlQuery };
         // remove fields from url query
 
-        const removedFields = ["location"];
+        const removedFields = ["location", "page", "limit"];
         removedFields.forEach((el) => delete urlQueryCopy[el]);
 
         // chain database query
         this.dbQuery = this.dbQuery.find(urlQueryCopy);
+        return this;
+    }
+
+    paginate() {
+        // get page
+        const page = +this.urlQuery.page || 1;
+        // get result per page
+        const limit = +this.urlQuery.limit || 10;
+        // calculate how many results are skipped
+        const skip = limit * (page - 1);
+
+        // chain database query
+        this.dbQuery = this.dbQuery.skip(skip).limit(limit);
         return this;
     }
 }
