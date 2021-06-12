@@ -46,3 +46,7 @@ for filter, remove unecessary fields
 for paginate, get page, get limit and calculate skip. don't forget to chain database query for each operation.
 
 start frontend, add _document file with bootstrap cdm links
+
+add Navigation, Footer, Layout, _app & Home. css is only in global file. 
+
+add meta tags and title
