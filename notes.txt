@@ -37,3 +37,12 @@ it will execute. To throw an error, use throw or next() function. To catch all e
 
 create catch async error middleware and handle validation error and cast error. make sure to show different errors for
 production and development mode
+
+for search, use $regex to search keywords in text. $options is for regex options, i means case-insensitive. make sure 
+field name is search field. 
+
+for filter, remove unecessary fields 
+
+for paginate, get page, get limit and calculate skip. don't forget to chain database query for each operation.
+
+start frontend, add _document file with bootstrap cdm links
