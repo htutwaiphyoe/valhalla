@@ -3,7 +3,7 @@ const Navigation = (props) => {
         <nav className="navbar row justify-content-center sticky-top">
             <div className="container">
                 <div className="col-3 p-0">
-                    <div className="navbar-brand">Valhalla</div>
+                    <div className="navbar-brand brand-name">Valhalla</div>
                 </div>
 
                 <div className="col-3 mt-3 mt-md-0 text-center">
