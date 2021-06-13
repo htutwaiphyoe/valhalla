@@ -4,22 +4,20 @@ import valhallaAxios from "../../utils/valhallaAxios";
 export const getRooms = () => async (dispatch) => {
     try {
         const response = await valhallaAxios.get("/api/rooms");
-        console.log(response);
         dispatch({
             type: roomActionTypes.ALL_ROOMS_SUCCESS,
-            payload: response,
+            payload: response.data,
         });
     } catch (err) {
-        console.log(err);
         dispatch({
             type: roomActionTypes.ALL_ROOMS_FAIL,
-            payload: err,
+            payload: err.response.data,
         });
     }
 };
 
-export const clearErrors = () => {
-    return {
+export const clearErrors = () => async (dispatch) => {
+    dispatch({
         type: roomActionTypes.CLEAR_ERRORS,
-    };
+    });
 };

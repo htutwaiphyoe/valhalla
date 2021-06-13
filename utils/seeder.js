@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Room = require("../models/room");
 
 // get json data
-const rooms = require("../dev-data/rooms/rooms.json");
+const rooms = require("../data/rooms/rooms.json");
 
 mongoose.connect("mongodb://localhost:27017/valhalla", {
     useNewUrlParser: true,

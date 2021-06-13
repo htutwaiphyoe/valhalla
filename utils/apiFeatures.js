@@ -36,7 +36,7 @@ class APIFeatures {
         // get page
         const page = +this.urlQuery.page || 1;
         // get result per page
-        const limit = +this.urlQuery.limit || 10;
+        const limit = +this.urlQuery.limit || 4;
         // calculate how many results are skipped
         const skip = limit * (page - 1);
 
