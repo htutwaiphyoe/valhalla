@@ -1,21 +1,22 @@
-import { ALL_ROOMS_SUCCESS, ALL_ROOMS_FAIL, CLEAR_ERRORS } from "../actionTypes/roomActionTypes";
+import * as roomActionTypes from "../actionTypes/roomActionTypes";
+import { updateState } from "../../utils/helpers";
 
 // All rooms reducer
 export const allRoomsReducer = (state = { rooms: [] }, action) => {
     switch (action.type) {
-        case ALL_ROOMS_SUCCESS:
-            return {
+        case roomActionTypes.ALL_ROOMS_SUCCESS:
+            return updateState(state, {
                 results: action.payload.results,
                 rooms: action.payload.rooms,
-            };
-        case ALL_ROOMS_FAIL:
-            return {
+            });
+        case roomActionTypes.ALL_ROOMS_FAIL:
+            return updateState(state, {
                 error: action.payload,
-            };
-        case CLEAR_ERRORS:
-            return {
+            });
+        case roomActionTypes.CLEAR_ERRORS:
+            return updateState(state, {
                 error: null,
-            };
+            });
         default:
             return state;
     }
