@@ -1,6 +1,4 @@
 import { Fragment } from "react";
-import Head from "next/head";
-
 import Navigation from "../Navigation/Navigation";
 import Footer from "../Footer/Footer";
 import Meta from "./Meta/Meta";
