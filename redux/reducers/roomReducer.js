@@ -2,7 +2,7 @@ import * as roomActionTypes from "../actionTypes/roomActionTypes";
 import { updateState } from "../../utils/helpers";
 
 // All rooms reducer
-export const allRoomsReducer = (state = { rooms: [] }, action) => {
+export const allRoomsReducer = (state = { rooms: [], error: null }, action) => {
     switch (action.type) {
         case roomActionTypes.ALL_ROOMS_SUCCESS:
             return updateState(state, {

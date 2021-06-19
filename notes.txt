@@ -50,3 +50,11 @@ start frontend, add _document file with bootstrap cdm links
 add Navigation, Footer, Layout, _app & Home. css is only in global file. 
 
 add meta tags and title
+
+data pre-fetching with getStaticProps, getStaticPaths & getServerSideProps
+
+create redux store. store needs a wrapper for nextjs to manipulate state (next-redux-wrapper). create actionTypes, reducer and actions for all rooms.
+get data with getServerSideProps of wrapper and display all rooms on HomePage 
+
+use react-toastify package for toast message. for toast, toast container and toast emitter are needed. toast container is
+defined in layout and toast emitter is defined in the component we want to. position means where toast message appears.

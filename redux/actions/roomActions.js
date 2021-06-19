@@ -11,7 +11,7 @@ export const getRooms = () => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: roomActionTypes.ALL_ROOMS_FAIL,
-            payload: err.response.data,
+            payload: err.response.data.message,
         });
     }
 };

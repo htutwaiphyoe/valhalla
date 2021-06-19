@@ -10,3 +10,9 @@
 -   reactjs
 -   next-connect
 -   mongoose
+-   axios
+-   redux
+-   react-redux
+-   redux-thunk
+-   next-redux-wrapper
+-   react-toastify

@@ -1,9 +1,15 @@
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 import RoomItem from "./RoomItem/RoomItem";
 
 const Home = (props) => {
-    const { rooms } = useSelector((state) => state.allRooms);
+    const { rooms, error } = useSelector((state) => state.allRooms);
+
+    useEffect(() => {
+        toast.error(error);
+    }, [error]);
     return (
         <section id="rooms" className="container mt-5">
             <h2 className="mb-3 ml-2 stays-heading">Stays in New York</h2>
