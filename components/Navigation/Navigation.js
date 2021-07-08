@@ -14,8 +14,8 @@ const Navigation = (props) => {
                         </div>
                     </div>
 
-                    <div className="col-3 mt-3 mt-md-0 text-center">
-                        <a className="btn btn-danger px-4 text-white login-header-btn float-right">
+                    <div className="col-3  mt-md-0 text-center">
+                        <a className="btn btn-danger px-3 text-white login-header-btn float-right">
                             Login
                         </a>
                     </div>

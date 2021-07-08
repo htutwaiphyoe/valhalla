@@ -32,9 +32,9 @@ const RoomItem = ({ room }) => {
                         <span id="no_of_reviews">({room.numOfReviews} Reviews)</span>
                     </div>
 
-                    <button className="btn btn-block view-btn">
-                        <Link href={`/rooms/${room._id}`}>View Details</Link>
-                    </button>
+                    <Link href={`/rooms/${room._id}`}>
+                        <a className="btn btn-block view-btn text-white btn-link">View Details</a>
+                    </Link>
                 </div>
             </div>
         </div>
