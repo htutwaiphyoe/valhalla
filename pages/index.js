@@ -5,10 +5,7 @@ import { getRooms } from "../redux/actions/roomActions";
 import wrapper from "../redux/store";
 const HomePage = () => {
     return (
-        <Layout
-            title="Hotel Valhalla"
-            description="Hotel Valhalla - Book now to spend your special holidays with best hotels"
-        >
+        <Layout>
             <Home />
         </Layout>
     );

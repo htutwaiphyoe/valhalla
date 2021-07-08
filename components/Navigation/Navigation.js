@@ -1,3 +1,4 @@
+import Link from "next/link";
 const Navigation = (props) => {
     return (
         <header className="sticky-top">
@@ -5,7 +6,11 @@ const Navigation = (props) => {
                 <div className="container">
                     <div className="col-3 p-0">
                         <div className="navbar-brand brand-name">
-                            <img src="/images/logo_transparent.png" alt="Valhalla Logo" />
+                            <Link href="/">
+                                <a>
+                                    <img src="/images/logo_transparent.png" alt="Valhalla Logo" />
+                                </a>
+                            </Link>
                         </div>
                     </div>
 

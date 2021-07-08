@@ -20,10 +20,10 @@ export const getRooms = () => async (dispatch) => {
 // Room details
 export const getRoomDetails = (id) => async (dispatch) => {
     try {
-        const response = await valhalaAxios.get(`/api/rooms/${id}`);
+        const response = await valhallaAxios.get(`/api/rooms/${id}`);
         dispatch({
             type: roomActionTypes.ROOM_DETAILS_SUCCRSS,
-            payload: response.data.rooms,
+            payload: response.data.data.data,
         });
     } catch (err) {
         dispatch({

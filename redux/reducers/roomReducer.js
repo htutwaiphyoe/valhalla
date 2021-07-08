@@ -32,7 +32,7 @@ export const roomDetailsReducer = (state = { room: {}, error: null }, action) =>
             return updateState(state, { error: action.payload });
         }
         case roomActionTypes.CLEAR_ERRORS: {
-            return updateState(state, { errror: null })
+            return updateState(state, { errror: null });
         }
         default:
             return state;

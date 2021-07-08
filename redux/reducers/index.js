@@ -4,7 +4,7 @@ import { allRoomsReducer, roomDetailsReducer } from "./roomReducer";
 
 const rootReducer = combineReducers({
     allRooms: allRoomsReducer,
-    roomDetals: roomDetailsReducer,
+    roomDetails: roomDetailsReducer,
 });
 
 export default rootReducer;
