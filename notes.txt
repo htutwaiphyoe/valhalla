@@ -60,3 +60,5 @@ use react-toastify package for toast message. for toast, toast container and toa
 defined in layout and toast emitter is defined in the component we want to. position means where toast message appears.
 
 create roomDetails reducer, actionTypes and action. then create RoomDetails page and RoomDetails component. make data pre-fetching with getServerSideProps and render component with actual data. create RoomFeatures component for features and render in RoomDetails component.
+
+to add pagination, react-js-pagination is used. Import and render its component in Home component. pass props to that component. handle click event and push url with page number. dispatch actiion with new page number in HomePage component with getServerSideProps. fetch new data set 

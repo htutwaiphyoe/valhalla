@@ -17,3 +17,4 @@
 -   next-redux-wrapper
 -   react-toastify
 -   react-bootstrap
+-   react-js-pagination

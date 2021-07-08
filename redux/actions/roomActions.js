@@ -2,20 +2,26 @@ import * as roomActionTypes from "../actionTypes/roomActionTypes";
 import valhallaAxios from "../../utils/valhallaAxios";
 
 // All rooms
-export const getRooms = () => async (dispatch) => {
-    try {
-        const response = await valhallaAxios.get("/api/rooms");
-        dispatch({
-            type: roomActionTypes.ALL_ROOMS_SUCCESS,
-            payload: response.data,
-        });
-    } catch (err) {
-        dispatch({
-            type: roomActionTypes.ALL_ROOMS_FAIL,
-            payload: err.response.data.message,
-        });
-    }
-};
+export const getRooms =
+    (page = 1) =>
+    async (dispatch) => {
+        try {
+            const response = await valhallaAxios.get("/api/rooms", {
+                params: {
+                    page,
+                },
+            });
+            dispatch({
+                type: roomActionTypes.ALL_ROOMS_SUCCESS,
+                payload: response.data,
+            });
+        } catch (err) {
+            dispatch({
+                type: roomActionTypes.ALL_ROOMS_FAIL,
+                payload: err.response.data.message,
+            });
+        }
+    };
 
 // Room details
 export const getRoomDetails = (id) => async (dispatch) => {

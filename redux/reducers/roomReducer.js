@@ -7,6 +7,8 @@ export const allRoomsReducer = (state = { rooms: [], error: null }, action) => {
         case roomActionTypes.ALL_ROOMS_SUCCESS:
             return updateState(state, {
                 results: action.payload.results,
+                total: action.payload.total,
+                limit: action.payload.limit,
                 rooms: action.payload.data.data,
             });
         case roomActionTypes.ALL_ROOMS_FAIL:

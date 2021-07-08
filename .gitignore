@@ -2,6 +2,7 @@
 
 # custom
 /bookit-html
+seeder.js
 # dependencies
 /node_modules
 

@@ -8,12 +8,16 @@ const getAllRooms = catchAsyncError(async (req, res, next) => {
     // get query
     const apiFeatures = new APIFeatures(Room.find(), req.query).search().filter().paginate();
 
+    // get number of documents in a collection
+    const allRoomsCount = await Room.countDocuments();
     // execute query
     const rooms = await apiFeatures.dbQuery;
 
     res.status(200).json({
         status: "success",
         results: rooms?.length,
+        limit: 4,
+        total: allRoomsCount,
         data: {
             data: rooms,
         },
