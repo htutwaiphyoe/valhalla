@@ -58,3 +58,5 @@ get data with getServerSideProps of wrapper and display all rooms on HomePage
 
 use react-toastify package for toast message. for toast, toast container and toast emitter are needed. toast container is
 defined in layout and toast emitter is defined in the component we want to. position means where toast message appears.
+
+create roomDetails reducer, actionTypes and action. then create RoomDetails page and RoomDetails component. make data pre-fetching with getServerSideProps and render component with actual data. create RoomFeatures component for features and render in RoomDetails component.

@@ -16,3 +16,4 @@
 -   redux-thunk
 -   next-redux-wrapper
 -   react-toastify
+-   react-bootstrap

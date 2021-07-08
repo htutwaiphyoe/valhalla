@@ -4,12 +4,15 @@ const Room = require("../models/room");
 // get json data
 const rooms = require("../data/rooms/rooms.json");
 
-mongoose.connect("mongodb://localhost:27017/valhalla", {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-});
+mongoose.connect(
+    "mongodb+srv://hwp:hwpvalhallanextjs@cluster0.85to0.mongodb.net/hotel?retryWrites=true&w=majority",
+    {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
+    }
+);
 
 const seeder = async () => {
     try {
