@@ -246,7 +246,12 @@ nav {
     color: #e61e4d;
     font-weight: 900;
     font-size: 30px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    font-family: "Aclonica", sans-serif;
+}
+.brand-name:hover {
+    color: #e61e4d;
+    text-decoration: none;
 }
 .login-header-btn {
     background-color: #e61e4d;

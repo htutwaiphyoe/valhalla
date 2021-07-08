@@ -5,11 +5,9 @@ const Navigation = (props) => {
             <nav className="navbar row justify-content-center">
                 <div className="container">
                     <div className="col-3 p-0">
-                        <div className="navbar-brand brand-name">
+                        <div className="navbar-brand">
                             <Link href="/">
-                                <a>
-                                    <img src="/images/logo_transparent.png" alt="Valhalla Logo" />
-                                </a>
+                                <a className="brand-name">Valhalla</a>
                             </Link>
                         </div>
                     </div>
