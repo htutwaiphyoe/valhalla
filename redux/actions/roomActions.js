@@ -3,12 +3,13 @@ import valhallaAxios from "../../utils/valhallaAxios";
 
 // All rooms
 export const getRooms =
-    (page = 1) =>
+    (page = 1, location = "") =>
     async (dispatch) => {
         try {
             const response = await valhallaAxios.get("/api/rooms", {
                 params: {
                     page,
+                    location,
                 },
             });
             dispatch({

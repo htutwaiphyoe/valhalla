@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import Pagination from "react-js-pagination";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import RoomItem from "./RoomItem/RoomItem";
 import Meta from "../Layout/Meta/Meta";
@@ -12,8 +13,8 @@ import { clearErrors } from "../../redux/actions/roomActions";
 const Home = (props) => {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { rooms, error, total, limit } = useSelector((state) => state.allRooms);
-    const { page = 1 } = router.query;
+    const { rooms, error, total, limit, results } = useSelector((state) => state.allRooms);
+    const { page = 1, location } = router.query;
 
     useEffect(() => {
         toast.error(error);
@@ -31,10 +32,15 @@ const Home = (props) => {
                 description="Book now to spend your special holidays with best hotels"
             />
             <section id="rooms" className="container mt-5">
-                <h2 className="mb-3 ml-2 stays-heading">Stays in New York</h2>
-                <a href="#" className="ml-2 back-to-search">
-                    <i className="fa fa-arrow-left"></i> Back to Search
-                </a>
+                <h2 className="mb-3 ml-2 stays-heading">
+                    {location ? `Rooms in ${location}` : "Find your room"}
+                </h2>
+                <Link href="/search">
+                    <a className="ml-2 back-to-search">
+                        <i className="fa fa-arrow-left"></i> Back to Search
+                    </a>
+                </Link>
+
                 <div className="row">
                     {rooms && rooms.length === 0 ? (
                         <div className="w-50 m-auto">
@@ -47,21 +53,22 @@ const Home = (props) => {
                     )}
                 </div>
             </section>
-
-            <div className="d-flex justify-content-center mt-3">
-                <Pagination
-                    activePage={+page}
-                    itemsCountPerPage={limit}
-                    totalItemsCount={total}
-                    onChange={handlePagination}
-                    nextPageText="Next"
-                    prevPageText="Prev"
-                    firstPageText="First"
-                    lastPageText="Last"
-                    itemClass="page-item"
-                    linkClass="page-link"
-                />
-            </div>
+            {limit < (location ? results : total) && (
+                <div className="d-flex justify-content-center mt-3">
+                    <Pagination
+                        activePage={+page}
+                        itemsCountPerPage={limit}
+                        totalItemsCount={total}
+                        onChange={handlePagination}
+                        nextPageText="Next"
+                        prevPageText="Prev"
+                        firstPageText="First"
+                        lastPageText="Last"
+                        itemClass="page-item"
+                        linkClass="page-link"
+                    />
+                </div>
+            )}
         </>
     );
 };
