@@ -3,14 +3,19 @@ import valhallaAxios from "../../utils/valhallaAxios";
 
 // All rooms
 export const getRooms =
-    (page = 1, location = "") =>
+    (page = 1, location = "", guestCapacity, category) =>
     async (dispatch) => {
+        const params = {
+            page,
+            location,
+        };
+        if (guestCapacity) params["guestCapacity"] = guestCapacity;
+
+        if (category) params["category"] = category;
+
         try {
             const response = await valhallaAxios.get("/api/rooms", {
-                params: {
-                    page,
-                    location,
-                },
+                params,
             });
             dispatch({
                 type: roomActionTypes.ALL_ROOMS_SUCCESS,
