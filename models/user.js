@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import validator from "validator";
+import uniqueValidator from "mongoose-unique-validator";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -48,5 +49,7 @@ const userSchema = new mongoose.Schema({
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 });
+
+userSchema.plugin(uniqueValidator, { message: "Email is already in use." });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);

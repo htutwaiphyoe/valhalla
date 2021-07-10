@@ -66,3 +66,5 @@ to add pagination, react-js-pagination is used. Import and render its component 
 add Search Component and search with location, guestCapacity and category. redirect to index and dispatch filter data and fetch data and render them in Home page
 
 add user model and enum object is enum: { values: ['Coffee', 'Tea'], message: '{VALUE} is not supported' }. use validator package for email validation
+
+install mongoose-unique-validator and add this plugin in useSchema
