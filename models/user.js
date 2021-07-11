@@ -52,4 +52,12 @@ const userSchema = new mongoose.Schema({
 
 userSchema.plugin(uniqueValidator, { message: "Email is already in use." });
 
+// pre save middleware for encrypting password
+userSchema.pre("save", async function (next) {
+    // run this function only password is updated
+    if (!this.isModified("password")) return next();
+
+    this.password = await bcrypt.hash(this.password, 12);
+});
+
 export default mongoose.models.User || mongoose.model("User", userSchema);

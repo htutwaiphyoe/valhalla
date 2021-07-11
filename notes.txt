@@ -68,3 +68,6 @@ add Search Component and search with location, guestCapacity and category. redir
 add user model and enum object is enum: { values: ['Coffee', 'Tea'], message: '{VALUE} is not supported' }. use validator package for email validation
 
 install mongoose-unique-validator and add this plugin in useSchema
+
+for authentication, authController is created and create signup function for signing up. then add api for signup and test that api. for encryption password, use pre save middleware in user model and bcrypt is used to encrypt it
+
