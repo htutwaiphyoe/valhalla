@@ -71,3 +71,8 @@ install mongoose-unique-validator and add this plugin in useSchema
 
 for authentication, authController is created and create signup function for signing up. then add api for signup and test that api. for encryption password, use pre save middleware in user model and bcrypt is used to encrypt it
 
+for login, next-auth package is used. firs create dynamic routes file [...nextauth] in api/auth folder. then create NextAuth and Provider for authentication. Credential is used for custom email, password authenication. it needs authorize function and it has credential argument which includes body data and then implement login functionality in that function and return success promise. for comparing password function, schema method is used.
+for session, jwt is used and set jwt: true in session object. 
+then add callback functions in callbacks object. jwt function is when jwt is created such as sign in or updated.
+add user which is returned from authorize function is added as a property of jwt token and return that token as a success promise.
+session callback is called whenever session is checked. add user in token which is returned from jwt callback as a property of session object and return that session as a success promise.
