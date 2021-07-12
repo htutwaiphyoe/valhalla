@@ -18,7 +18,7 @@ const Search = (props) => {
     return (
         <div className="container container-fluid">
             <div className="row wrapper">
-                <div className="col-10 col-lg-5">
+                <div className="col-12 col-lg-5">
                     <form className="shadow-lg" onSubmit={formSubmitHandler}>
                         <h2 className="mb-3">Search Rooms</h2>
                         <div className="form-group">

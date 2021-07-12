@@ -78,3 +78,10 @@ add user which is returned from authorize function is added as a property of jwt
 session callback is called whenever session is checked. add user in token which is returned from jwt callback as a property of session object and return that session as a success promise.
 
 create Login, LoginPage component and send request using signIn method in next-auth/client. it gives result object. if it has error, show error and else redirect to home page. When request is sent, ButtonLoader is shown and button is disable.
+
+for image upload, cloudinary service is used. first install cloudinary npm package. then register account in cloudinary website to get api key. add api key in .env file. add configuration in auth controller and upload avatar to cloud when signup. then store actual avatar data in database
+
+first create Signup component and add two ways binding in input. file input does not need value binding, just onChange. handle file onChange event to get image preview. first create FileReader and if file reading is complete set file to the state and add file.readAsDataURL(e.target.files[0]). choose file data is in e.target.files.
+avatar preview value is linked with src in img tag for preview.
+
+handler onSubmit and check input validations. if ok, dispatch signup action.

@@ -3,6 +3,7 @@ import { signIn } from "next-auth/client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import validator from "validator";
+import Link from "next/link";
 
 import Meta from "../Layout/Meta/Meta";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -29,7 +30,7 @@ const Login = (props) => {
             email,
             password,
         });
-        console.log(result);
+
         setLoading(false);
 
         if (result.error) {
@@ -45,7 +46,7 @@ const Login = (props) => {
             <Meta title="Login - Hotel Valhalla" description="Login to book our best rooms" />
             <div className="container container-fluid">
                 <div className="row wrapper">
-                    <div className="col-10 col-lg-5">
+                    <div className="col-12 col-lg-5">
                         <form className="shadow-lg" onSubmit={submitHandler}>
                             <h1 className="mb-3">Login</h1>
                             <div className="form-group">
@@ -85,9 +86,9 @@ const Login = (props) => {
                                 {loading ? <ButtonLoader /> : "LOGIN"}
                             </button>
 
-                            <a href="#" className="float-right mt-3">
-                                New User?
-                            </a>
+                            <Link href="/signup">
+                                <a className="float-right mt-3">New User?</a>
+                            </Link>
                         </form>
                     </div>
                 </div>
