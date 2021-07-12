@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import validator from "validator";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+
+import { signup, clearError } from "../../redux/actions/userActions";
+
+import ButtonLoader from "../ButtonLoader/ButtonLoader";
 
 const Signup = (props) => {
     const [fullName, setFullName] = useState("");
@@ -9,6 +15,20 @@ const Signup = (props) => {
     const [avatar, setAvatar] = useState("");
     const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.jpg");
 
+    const dispatch = useDispatch();
+    const router = useRouter();
+    const { loading, success, error } = useSelector((state) => state.signup);
+
+    useEffect(() => {
+        if (success) {
+            toast.success(success);
+            router.replace("/login");
+        }
+        if (error) {
+            toast.error(error);
+            dispatch(clearError());
+        }
+    }, [dispatch, success, error]);
     const avatarChangeHandler = (e) => {
         const fileReader = new FileReader();
 
@@ -35,7 +55,19 @@ const Signup = (props) => {
             toast.error("Please enter valid data, password must be at least 8 characters.");
             return;
         }
-        console.log(fullName, email, password, avatar);
+        dispatch(
+            signup({
+                name: fullName,
+                email,
+                password,
+                avatar,
+            })
+        );
+        setFullName("");
+        setEmail("");
+        setPassword("");
+        setAvatar("");
+        setAvatarPreview("/images/default_avatar.jpg");
     };
     return (
         <div className="container container-fluid">
@@ -101,16 +133,22 @@ const Signup = (props) => {
                                         onChange={avatarChangeHandler}
                                         accept="image/*"
                                         required={true}
+                                        disabled={loading}
                                     />
                                     <label className="custom-file-label" htmlFor="customFile">
-                                        Choose Avatar
+                                        {avatar ? "Avatar is chosen" : "Choose Avatar"}
                                     </label>
                                 </div>
                             </div>
                         </div>
 
-                        <button id="login_button" type="submit" className="btn btn-block py-3">
-                            REGISTER
+                        <button
+                            id="login_button"
+                            type="submit"
+                            className="btn btn-block py-3"
+                            disabled={loading}
+                        >
+                            {loading ? <ButtonLoader /> : "SIGNUP"}
                         </button>
                     </form>
                 </div>

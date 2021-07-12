@@ -84,4 +84,4 @@ for image upload, cloudinary service is used. first install cloudinary npm packa
 first create Signup component and add two ways binding in input. file input does not need value binding, just onChange. handle file onChange event to get image preview. first create FileReader and if file reading is complete set file to the state and add file.readAsDataURL(e.target.files[0]). choose file data is in e.target.files.
 avatar preview value is linked with src in img tag for preview.
 
-handler onSubmit and check input validations. if ok, dispatch signup action.
+handler onSubmit and check input validations. if ok, dispatch signup action. create userReducer and action and actionTypes. if success, redirect to login page

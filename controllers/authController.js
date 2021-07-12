@@ -2,7 +2,6 @@ import cloudinary from "cloudinary";
 
 import User from "../models/user";
 import catchAsyncError from "../middlewares/catchAsyncError";
-import ErrorHandler from "../utils/errorHandler";
 
 // cloudinary configuration
 cloudinary.config({
