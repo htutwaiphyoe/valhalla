@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "../../redux/actions/userActions";
 const Navigation = (props) => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.loggedInUser.user);
-    console.log(user);
+    const { user, loading } = useSelector((state) => state.loggedInUser);
+
     useEffect(() => {
-        dispatch(loadUser());
+        if (!user) {
+            dispatch(loadUser());
+        }
     }, [dispatch]);
     return (
         <header className="sticky-top">
@@ -22,12 +24,51 @@ const Navigation = (props) => {
                         </div>
                     </div>
 
-                    <div className="col-3  mt-md-0 text-center">
-                        <Link href="/login">
-                            <a className="btn btn-danger px-3 text-white login-header-btn float-right">
-                                Login
-                            </a>
-                        </Link>
+                    <div className="col-6 col-md-3 mt-md-0 text-right">
+                        {user ? (
+                            <div className="dropdown d-line">
+                                <a
+                                    className="btn dropdown-toggle"
+                                    id="dropDownMenuButton"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                >
+                                    <figure className="avatar avatar-nav">
+                                        <img
+                                            src={user.avatar.url}
+                                            alt={user.name}
+                                            className="rounded-circle"
+                                        />
+                                    </figure>
+                                    <span>{user.name}</span>
+                                </a>
+
+                                <div
+                                    className="dropdown-menu"
+                                    style={{ right: "0", minWidth: "5rem" }}
+                                    aria-labelledby="dropDownMenuButton"
+                                >
+                                    <Link href="/bookings/me">
+                                        <a className="dropdown-item">Bookings</a>
+                                    </Link>
+
+                                    <Link href="/me/update">
+                                        <a className="dropdown-item">Profile</a>
+                                    </Link>
+
+                                    <Link href="/logout">
+                                        <a className="dropdown-item text-danger">Logout</a>
+                                    </Link>
+                                </div>
+                            </div>
+                        ) : (
+                            <Link href="/login">
+                                <a className="btn btn-danger px-3 text-white login-header-btn float-right">
+                                    Login
+                                </a>
+                            </Link>
+                        )}
                     </div>
                 </div>
             </nav>
