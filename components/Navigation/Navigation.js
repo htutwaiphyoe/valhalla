@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "next-auth/client";
+import { useRouter } from "next/router";
 
 import { loadUser } from "../../redux/actions/userActions";
 const Navigation = (props) => {
     const dispatch = useDispatch();
+    const router = useRouter();
     const { user, loading } = useSelector((state) => state.loggedInUser);
 
     useEffect(() => {
@@ -12,6 +15,12 @@ const Navigation = (props) => {
             dispatch(loadUser());
         }
     }, [dispatch]);
+
+    const logoutHandler = async () => {
+        // logout without page reload and redirect to "/"
+        const data = await signOut({ redirect: false, callbackUrl: "/" });
+        router.replace(data.url);
+    };
     return (
         <header className="sticky-top">
             <nav className="navbar row justify-content-center">
@@ -57,9 +66,12 @@ const Navigation = (props) => {
                                         <a className="dropdown-item">Profile</a>
                                     </Link>
 
-                                    <Link href="/logout">
-                                        <a className="dropdown-item text-danger">Logout</a>
-                                    </Link>
+                                    <button
+                                        className="dropdown-item text-danger"
+                                        onClick={logoutHandler}
+                                    >
+                                        Logout
+                                    </button>
                                 </div>
                             </div>
                         ) : (
