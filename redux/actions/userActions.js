@@ -1,6 +1,7 @@
 import * as userActionTypes from "../actionTypes/userActionTypes";
 import valhallaAxios from "../../utils/valhallaAxios";
 
+// signup action
 export const signup = (userData) => async (dispatch) => {
     try {
         dispatch({ type: userActionTypes.SIGNUP_REQUEST });
@@ -21,7 +22,24 @@ export const signup = (userData) => async (dispatch) => {
     }
 };
 
-// clear error
+// load user action
+export const loadUser = () => async (dispatch) => {
+    try {
+        dispatch({ type: userActionTypes.LOAD_USER_REQUEST });
+
+        const response = await valhallaAxios.get("/api/me");
+        dispatch({
+            type: userActionTypes.LOAD_USER_SUCCESS,
+            payload: response.data.data.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: userActionTypes.LOAD_USER_FAIL,
+            error: err.response.data.message,
+        });
+    }
+};
+// clear error action
 export const clearError = () => async (dispatch) => {
     dispatch({ type: userActionTypes.CLEAR_ERROR });
 };

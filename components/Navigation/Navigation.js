@@ -1,5 +1,15 @@
 import Link from "next/link";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { loadUser } from "../../redux/actions/userActions";
 const Navigation = (props) => {
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.loggedInUser.user);
+    console.log(user);
+    useEffect(() => {
+        dispatch(loadUser());
+    }, [dispatch]);
     return (
         <header className="sticky-top">
             <nav className="navbar row justify-content-center">

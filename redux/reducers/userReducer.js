@@ -16,3 +16,31 @@ export const signupReducer = (state = { loading: false, success: null, error: nu
             return state;
     }
 };
+
+// load user reducer
+export const loggedInUserReducer = (
+    state = { loading: false, user: null, error: null, isAuthenticated: false },
+    action
+) => {
+    switch (action.type) {
+        case userActionTypes.LOAD_USER_REQUEST:
+            return updateState(state, { loading: true, isAuthenticated: false });
+        case userActionTypes.LOAD_USER_SUCCESS:
+            return updateState(state, {
+                loading: false,
+                user: action.payload,
+                isAuthenticated: true,
+            });
+        case userActionTypes.LOAD_USER_FAIL:
+            return updateState(state, {
+                loading: false,
+                error: action.payload,
+                isAuthenticated: false,
+            });
+
+        case userActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null, loading: false });
+        default:
+            return state;
+    }
+};
