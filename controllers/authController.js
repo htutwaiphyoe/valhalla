@@ -10,6 +10,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// signup: /api/auth/signup
 export const signUp = catchAsyncError(async (req, res) => {
     const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: "valhalla/avatar",
@@ -31,5 +32,16 @@ export const signUp = catchAsyncError(async (req, res) => {
     res.status(201).json({
         status: "success",
         message: "Sign up success",
+    });
+});
+
+// get logged in user: /api/me
+export const getLoggedInUser = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user._id);
+    res.status(200).json({
+        status: "success",
+        data: {
+            data: user,
+        },
     });
 });
