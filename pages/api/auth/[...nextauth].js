@@ -31,6 +31,7 @@ export default NextAuth({
                 }
 
                 // return promise
+                user.password = undefined;
                 return Promise.resolve(user);
             },
         }),

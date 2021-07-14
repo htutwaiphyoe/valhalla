@@ -1,21 +1,9 @@
 import Link from "next/link";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "next-auth/client";
+import { signOut, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-
-import { loadUser } from "../../redux/actions/userActions";
 const Navigation = (props) => {
-    const dispatch = useDispatch();
     const router = useRouter();
-    const { user, loading } = useSelector((state) => state.loggedInUser);
-
-    useEffect(() => {
-        if (!user) {
-            dispatch(loadUser());
-        }
-    }, [dispatch, user]);
-
+    const [session, loading] = useSession();
     const logoutHandler = async () => {
         // logout without page reload and redirect to "/"
         const data = await signOut({ redirect: false, callbackUrl: "/" });
@@ -34,7 +22,7 @@ const Navigation = (props) => {
                     </div>
 
                     <div className="col-6 col-md-3 mt-md-0 text-right">
-                        {user ? (
+                        {session ? (
                             <div className="dropdown d-line">
                                 <a
                                     className="btn dropdown-toggle"
@@ -45,12 +33,12 @@ const Navigation = (props) => {
                                 >
                                     <figure className="avatar avatar-nav">
                                         <img
-                                            src={user.avatar.url}
-                                            alt={user.name}
+                                            src={session.user.avatar.url}
+                                            alt={session.user.name}
                                             className="rounded-circle"
                                         />
                                     </figure>
-                                    <span>{user.name}</span>
+                                    <span>{session.user.name}</span>
                                 </a>
 
                                 <div
