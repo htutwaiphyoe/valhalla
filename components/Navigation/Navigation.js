@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -14,7 +14,7 @@ const Navigation = (props) => {
         if (!user) {
             dispatch(loadUser());
         }
-    }, [dispatch]);
+    }, [dispatch, user]);
 
     const logoutHandler = async () => {
         // logout without page reload and redirect to "/"
@@ -75,11 +75,13 @@ const Navigation = (props) => {
                                 </div>
                             </div>
                         ) : (
-                            <Link href="/login">
-                                <a className="btn btn-danger px-3 text-white login-header-btn float-right">
-                                    Login
-                                </a>
-                            </Link>
+                            !loading && (
+                                <Link href="/login">
+                                    <a className="btn btn-danger px-3 text-white login-header-btn float-right">
+                                        Login
+                                    </a>
+                                </Link>
+                            )
                         )}
                     </div>
                 </div>

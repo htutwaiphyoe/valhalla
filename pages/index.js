@@ -4,11 +4,7 @@ import Home from "../components/Home/Home";
 import { getRooms } from "../redux/actions/roomActions";
 import wrapper from "../redux/store";
 const HomePage = () => {
-    return (
-        <Layout>
-            <Home />
-        </Layout>
-    );
+    return <Home />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, query }) => {

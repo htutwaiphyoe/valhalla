@@ -5,11 +5,7 @@ import { getRoomDetails } from "../../redux/actions/roomActions";
 import wrapper from "../../redux/store";
 
 const RoomDetailsPage = (props) => {
-    return (
-        <Layout>
-            <RoomDetails />
-        </Layout>
-    );
+    return <RoomDetails />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, params }) => {
