@@ -1,25 +1,29 @@
 import { getSession } from "next-auth/client";
 
-import Login from "../components/auth/Login";
-
-const LoginPage = (props) => {
-    return <Login />;
+const ProfilePage = (props) => {
+    return (
+        <div>
+            <h1>Profile</h1>
+        </div>
+    );
 };
 
 export async function getServerSideProps(context) {
     const { req } = context;
     const session = await getSession({ req });
-    if (session) {
+    if (!session) {
         return {
             redirect: {
-                destination: "/",
+                destination: "/login",
                 permanent: false,
             },
         };
     }
 
     return {
-        props: {},
+        props: {
+            session,
+        },
     };
 }
-export default LoginPage;
+export default ProfilePage;

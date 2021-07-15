@@ -50,7 +50,7 @@ const Navigation = (props) => {
                                         <a className="dropdown-item">Bookings</a>
                                     </Link>
 
-                                    <Link href="/me/update">
+                                    <Link href="/me">
                                         <a className="dropdown-item">Profile</a>
                                     </Link>
 

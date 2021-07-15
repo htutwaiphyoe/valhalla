@@ -18,3 +18,4 @@
 -   react-toastify
 -   react-bootstrap
 -   react-js-pagination
+-   next-auth
