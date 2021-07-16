@@ -74,3 +74,22 @@ export const updateUserReducer = (
             return state;
     }
 };
+
+// forgot password reducer
+export const forgotPasswordReducer = (
+    state = { loading: false, message: "", error: null },
+    action
+) => {
+    switch (action.type) {
+        case userActionTypes.FORGOT_PASSWORD_REQUEST:
+            return updateState(state, { loading: true });
+        case userActionTypes.FORGOT_PASSWORD_SUCCESS:
+            return updateState(state, { loading: false, message: action.payload });
+        case userActionTypes.FORGOT_PASSWORD_FAILURE:
+            return updateState(state, { loading: false, error: action.payload });
+        case userActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};

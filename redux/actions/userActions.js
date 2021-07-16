@@ -61,6 +61,28 @@ export const updateUserProfile = (userData) => async (dispatch) => {
         });
     }
 };
+
+// forgot password action
+export const forgotPassword = (email) => async (dispatch) => {
+    try {
+        dispatch({ type: userActionTypes.FORGOT_PASSWORD_REQUEST });
+        const response = await valhallaAxios.post("/api/password/forgot", email, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        dispatch({
+            type: userActionTypes.FORGOT_PASSWORD_SUCCESS,
+            payload: response.data.message,
+        });
+    } catch (err) {
+        dispatch({
+            type: userActionTypes.FORGOT_PASSWORD_FAILURE,
+            payload: err.response.data.message,
+        });
+    }
+};
+
 // clear error action
 export const clearError = () => async (dispatch) => {
     dispatch({ type: userActionTypes.CLEAR_ERROR });

@@ -73,9 +73,9 @@ const Login = (props) => {
                                 />
                             </div>
 
-                            <a href="#" className="float-right mb-4">
-                                Forgot Password?
-                            </a>
+                            <Link href="/password/forgot">
+                                <a className="float-right mb-4">Forgot Password?</a>
+                            </Link>
 
                             <button
                                 id="login_button"
@@ -87,7 +87,7 @@ const Login = (props) => {
                             </button>
 
                             <Link href="/signup">
-                                <a className="float-right mt-3">New User?</a>
+                                <a className="float-right mt-2">New User?</a>
                             </Link>
                         </form>
                     </div>

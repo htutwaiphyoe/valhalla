@@ -1,14 +1,15 @@
 import { combineReducers } from "redux";
 
 import { allRoomsReducer, roomDetailsReducer } from "./roomReducer";
-import { signupReducer, loggedInUserReducer, updateUserReducer } from "./userReducer";
+import * as userReducer from "./userReducer";
 
 const rootReducer = combineReducers({
     allRooms: allRoomsReducer,
     roomDetails: roomDetailsReducer,
-    signup: signupReducer,
-    loggedInUser: loggedInUserReducer,
-    updateUser: updateUserReducer,
+    signup: userReducer.signupReducer,
+    loggedInUser: userReducer.loggedInUserReducer,
+    updateUser: userReducer.updateUserReducer,
+    forgotPassword: userReducer.forgotPasswordReducer,
 });
 
 export default rootReducer;

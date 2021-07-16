@@ -170,6 +170,11 @@ button:disabled {
     padding: 2.5rem 3rem;
 }
 
+@media screen and (max-width: 575px) {
+    .wrapper form {
+        padding: 1rem 1.5rem 2.5rem;
+    }
+}
 .wrapper form .btn,
 .booking-btn,
 .update-btn,

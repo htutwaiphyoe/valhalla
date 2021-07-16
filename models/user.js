@@ -70,7 +70,7 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 // schema method for generating reset password token
 userSchema.methods.generateResetPasswordToken = function () {
     // generate token
-    const resetToken = crypt.randomBytes(32).toString("hex");
+    const resetToken = crypto.randomBytes(32).toString("hex");
 
     // save in document
     this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
