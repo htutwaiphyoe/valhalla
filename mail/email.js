@@ -24,7 +24,7 @@ const sendEmail = async (options) => {
 
     // mail data options
     const mailOptions = {
-        from: "Hotel Valhalla <hwpjimmy2000@gmail.com>",
+        from: `Hotel Valhalla <${process.env.SENDER_EMAIL}>`,
         to: options.email,
         subject: options.subject,
         text: options.body,

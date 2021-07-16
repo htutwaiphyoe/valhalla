@@ -103,3 +103,9 @@ create Profile component to update user profile
 create schema method for generating reset password token in userSchema
 
 configure email with mailtrap and nodemailer and create forgot password controller, fist get email and fetch user then get token and save user. then create reset url and message and send email. use try/catch for sending mail and if there is an error, delete data related with reset and save.
+
+create ForgotPassword component, reducer, action and page and send email
+
+use SendGrid for real world email sending, get username and password in SMTP relay and configure server and auth user and password. to send real email, sender authentication is needed for sender email
+
+create reset password api route /api/password/reset/:token, first get toke from request query, hash with crypto and fetch user with hashed token and current time, check user exists, then check password match and save user

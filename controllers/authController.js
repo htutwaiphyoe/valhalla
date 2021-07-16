@@ -1,5 +1,6 @@
 import cloudinary from "cloudinary";
 import absoluteUrl from "next-absolute-url";
+import crypto from "crypto";
 
 import User from "../models/user";
 import catchAsyncError from "../middlewares/catchAsyncError";
@@ -113,8 +114,8 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
     try {
         await sendEmail({
             email: user.email,
-            subject: "Account recovery mail (valid 10 min)",
-            body: `Here is the link to reset your password, ${resetUrl}`,
+            subject: "Your password reset request (valid 10 min)",
+            body: `Here is the link to reset your password for Valhalla account, ${resetUrl}`,
         });
 
         res.status(200).json({
@@ -127,4 +128,46 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
         await user.save({ validateBeforeSave: false });
         return next(new ErrorHandler("There was an error in sending mail", 500));
     }
+});
+
+// reset password => /api/password/reset
+
+export const resetPassword = catchAsyncError(async (req, res, next) => {
+    // hash token from query
+    const { token } = req.query;
+    const resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");
+
+    // get user with that token
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    // check user exists
+    if (!user) {
+        return next(
+            new ErrorHandler(
+                "Token is invalid or has expired, please send email again to get new email",
+                400
+            )
+        );
+    }
+
+    // check password
+    if (req.body.password !== req.body.confirmPassword) {
+        return next(new ErrorHandler("Passwords do not match!", 400));
+    }
+
+    // save password
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    // send response
+    res.status(201).json({
+        status: "success",
+        message: "Password updated successfully.",
+    });
 });

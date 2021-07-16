@@ -12,12 +12,12 @@ const ForgotPassword = (props) => {
     const [email, setEmail] = useState("");
 
     useEffect(() => {
+        if (message) {
+            toast.success(message);
+        }
         if (error) {
             toast.error(error);
             dispatch(clearError());
-        }
-        if (message) {
-            toast.success(message);
         }
     }, [dispatch, error, message]);
 
@@ -32,6 +32,8 @@ const ForgotPassword = (props) => {
                 email,
             })
         );
+
+        setEmail("");
     };
     return (
         <div className="row wrapper">
