@@ -1,3 +1,5 @@
+import { getSession } from "next-auth/client";
+
 import ForgotPassword from "../../components/user/ForgotPassword";
 import Meta from "../../components/Layout/Meta/Meta";
 
@@ -13,4 +15,20 @@ const ForgotPasswordPage = (props) => {
     );
 };
 
+export async function getServerSideProps(context) {
+    const { req } = context;
+    const session = await getSession({ req });
+    if (session) {
+        return {
+            redirect: {
+                destination: "/",
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: {},
+    };
+}
 export default ForgotPasswordPage;
