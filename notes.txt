@@ -97,3 +97,7 @@ logout with signOut in next-auth/client, default is page reload but to redirect 
 create api route for update profile api/me/update, first create controller, in there first check user exists and then replace user data with request body data and be aware this route is only for authenticated user
 
 create reducer, actionTypes and actions for update profile 
+
+create Profile component to update user profile
+
+create schema method for generating reset password token in userSchema

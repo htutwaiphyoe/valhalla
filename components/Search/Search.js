@@ -30,6 +30,7 @@ const Search = (props) => {
                                 placeholder="new york"
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
+                                required={true}
                             />
                         </div>
 

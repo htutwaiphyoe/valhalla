@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 import uniqueValidator from "mongoose-unique-validator";
+import crypto from "crypto";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -66,4 +67,15 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
+// schema method for generating reset password token
+userSchema.methods.resetPasswordToken = function () {
+    // generate token
+    const resetToken = crypt.randomBytes(32).toString("hex");
+
+    // save in document
+    this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+    this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+
+    return resetToken;
+};
 export default mongoose.models.User || mongoose.model("User", userSchema);
