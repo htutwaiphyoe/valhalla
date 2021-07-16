@@ -1,7 +1,10 @@
 import cloudinary from "cloudinary";
+import absoluteUrl from "next-absolute-url";
 
 import User from "../models/user";
 import catchAsyncError from "../middlewares/catchAsyncError";
+import ErrorHandler from "../utils/errorHandler";
+import sendEmail from "../mail/email";
 
 // cloudinary configuration
 cloudinary.config({
@@ -83,4 +86,45 @@ export const updateUserProfile = catchAsyncError(async (req, res, next) => {
         status: "success",
         message: "Profile has been updated successfully, Please login!",
     });
+});
+
+// forgot password => /api/password/forgot
+export const forgotPassword = catchAsyncError(async (req, res, next) => {
+    const { email } = req.body;
+
+    // get and check user
+    const user = await User.findOne({ email });
+    if (!user) {
+        return next(new ErrorHandler("No user with this email", 404));
+    }
+
+    // get token
+    const token = user.generateResetPasswordToken();
+
+    // save token
+    await user.save({ validateBeforeSave: false });
+
+    // get origin
+    const { origin } = absoluteUrl(req);
+
+    // create reset url
+    const resetUrl = `${origin}/password/reset/${token}`;
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: "Account recovery mail (valid 10 min)",
+            body: `Here is the link to reset your password, ${resetUrl}`,
+        });
+
+        res.status(200).json({
+            status: "success",
+            message: `Email was sent to ${user.email}`,
+        });
+    } catch (err) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save({ validateBeforeSave: false });
+        return next(new ErrorHandler("There was an error in sending mail", 500));
+    }
 });

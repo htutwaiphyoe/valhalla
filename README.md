@@ -19,3 +19,5 @@
 -   react-bootstrap
 -   react-js-pagination
 -   next-auth
+-   nodemailer
+-   next-absolute-url
