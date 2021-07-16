@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-import { signup, clearError } from "../../redux/actions/userActions";
+import { signup, clearError, resetSignup } from "../../redux/actions/userActions";
 
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
 
@@ -22,6 +22,7 @@ const Signup = (props) => {
     useEffect(() => {
         if (success) {
             toast.success(success);
+            dispatch(resetSignup());
             router.replace("/login");
         }
         if (error) {

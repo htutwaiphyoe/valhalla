@@ -2,10 +2,18 @@
 export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAIL = "SIGNUP_FAIL";
+export const SIGNUP_RESET = "SIGNUP_RESET";
 
 // load user
 export const LOAD_USER_REQUEST = "LOAD_USER_REQUEST";
 export const LOAD_USER_SUCCESS = "LOAD_USER_SUCCESS";
 export const LOAD_USER_FAIL = "LOAD_USER_FAIL";
+
+// update user profile
+export const UPDATE_PROFILE_REQUEST = "UPDATE_PROFILE_REQUEST";
+export const UPDATE_PROFILE_SUCCESS = "UPDATE_PROFILE_SUCCESS";
+export const UPDATE_PROFILE_FAIL = "UPDATE_PROFILE_FAIL";
+export const UPDATE_PROFILE_RESET = "UPDATE_PROFILE_RESET";
+
 // error
 export const CLEAR_ERROR = "CLEAR_ERROR";

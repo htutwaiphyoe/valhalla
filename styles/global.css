@@ -48,7 +48,7 @@ button:disabled {
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: #e61e4d;
+    background: hsl(250, 69%, 61%);
     -webkit-animation-timing-function: cubic-bezier(0, 1, 1, 0);
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
@@ -178,23 +178,23 @@ button:disabled {
 #forgot_password_button,
 #new_password_button,
 .search-form .btn {
-    background-color: #e61e4d;
-    border-color: #e61e4d;
+    background-color: hsl(250, 69%, 61%);
+    border-color: hsl(250, 69%, 61%);
     color: white;
     margin-top: 2.5rem;
     font-weight: bold;
 }
 
 .review-btn {
-    background-color: #e61e4d;
-    border-color: #e61e4d;
+    background-color: hsl(250, 69%, 61%);
+    border-color: hsl(250, 69%, 61%);
     margin-top: 2rem;
     border-radius: 5rem;
 }
 
 .new-room-btn {
-    background-color: #e61e4d;
-    border-color: #e61e4d;
+    background-color: hsl(250, 69%, 61%);
+    border-color: hsl(250, 69%, 61%);
 }
 
 .wrapper form a {
@@ -246,17 +246,17 @@ nav {
     box-shadow: 0 4px 6px -6px #222;
 }
 .brand-name {
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
     font-weight: 900;
     font-size: 30px;
     font-family: "Aclonica", sans-serif;
 }
 .brand-name:hover {
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
     text-decoration: none;
 }
 .login-header-btn {
-    background-color: #e61e4d;
+    background-color: hsl(250, 69%, 61%);
 }
 
 .login-header-btn a {
@@ -271,12 +271,12 @@ nav {
 
 .back-to-search {
     font-size: 1.1rem;
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
     font-weight: 600;
 }
 
 .back-to-search:hover {
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
 }
 
 .card {
@@ -290,7 +290,7 @@ nav {
 }
 
 .card-title a:hover {
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
     text-decoration: none;
 }
 
@@ -305,7 +305,7 @@ nav {
 }
 
 .view-btn {
-    background-color: #e61e4d;
+    background-color: hsl(250, 69%, 61%);
 }
 
 .view-btn a {
@@ -318,7 +318,7 @@ nav {
 
 .ratings {
     font-size: 1.2rem;
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
 }
 
 #no_of_reviews {
@@ -333,7 +333,7 @@ nav {
     display: inline-block;
     position: relative;
     font-family: FontAwesome;
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
 }
 
 .rating-outer::before {
@@ -351,7 +351,7 @@ nav {
 
 .rating-inner::before {
     content: "\f005 \f005 \f005 \f005 \f005";
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
 }
 
 /* Room Details Page */
@@ -410,7 +410,7 @@ nav {
 }
 
 .red {
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
 }
 
 .light-red {
@@ -507,16 +507,16 @@ input::placeholder {
 
 /* Pagination */
 .page-item.active .page-link {
-    background-color: #e61e4d;
-    border-color: #e61e4d;
+    background-color: hsl(250, 69%, 61%);
+    border-color: hsl(250, 69%, 61%);
 }
 
 .page-link {
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
 }
 
 .page-link:hover {
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
 }
 
 /* Booking Details */
@@ -544,7 +544,7 @@ input::placeholder {
 }
 
 #title_404 {
-    color: #e61e4d;
+    color: hsl(250, 69%, 61%);
     font-size: 7rem;
 }
 

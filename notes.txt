@@ -93,3 +93,6 @@ create reducer, actions and actionTypes for loading loggedin user in state.
 show navigation item conditionally, use useSession() hooks to check user is authenticated or not
 
 logout with signOut in next-auth/client, default is page reload but to redirect and not reload page, use async version of signOut
+
+create api route for update profile api/me/update, first create controller, in there first check user exists and then replace user data with request body data and be aware this route is only for authenticated user
+

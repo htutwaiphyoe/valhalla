@@ -12,6 +12,8 @@ export const signupReducer = (state = { loading: false, success: null, error: nu
             return updateState(state, { loading: false, error: action.payload });
         case userActionTypes.CLEAR_ERROR:
             return updateState(state, { error: null, loading: false });
+        case userActionTypes.SIGNUP_RESET:
+            return updateState(state, { loading: false, success: null, error: null });
         default:
             return state;
     }
@@ -40,6 +42,34 @@ export const loggedInUserReducer = (
 
         case userActionTypes.CLEAR_ERROR:
             return updateState(state, { error: null, loading: false });
+        default:
+            return state;
+    }
+};
+
+// update user profile reducer
+export const updateUserReducer = (
+    state = { loading: false, error: null, message: "", user: null },
+    action
+) => {
+    switch (action.type) {
+        case userActionTypes.UPDATE_PROFILE_REQUEST:
+            return updateState(state, { loading: true });
+        case userActionTypes.UPDATE_PROFILE_SUCCESS:
+            return updateState(state, {
+                loading: false,
+                user: action.payload.user,
+                message: action.payload.message,
+            });
+        case userActionTypes.UPDATE_PROFILE_FAIL: {
+            return updateState(state, { loading: false, error: action.payload });
+        }
+        case userActionTypes.CLEAR_ERROR: {
+            return updateState(state, { error: null, loading: false });
+        }
+        case userActionTypes.UPDATE_PROFILE_RESET: {
+            return updateState(state, { loading: false, error: null, message: "", user: null });
+        }
         default:
             return state;
     }

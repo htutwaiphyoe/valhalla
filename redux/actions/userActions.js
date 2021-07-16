@@ -39,7 +39,33 @@ export const loadUser = () => async (dispatch) => {
         });
     }
 };
+
+// update user profile action
+export const updateUserProfile = (userData) => async (dispatch) => {
+    try {
+        dispatch({ type: userActionTypes.UPDATE_PROFILE_REQUEST });
+        const response = await valhallaAxios.patch("/api/me/update", userData, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        console.log(response);
+        dispatch({
+            type: userActionTypes.UPDATE_PROFILE_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: userActionTypes.UPDATE_PROFILE_FAIL,
+            error: err.response.data.message,
+        });
+    }
+};
 // clear error action
 export const clearError = () => async (dispatch) => {
     dispatch({ type: userActionTypes.CLEAR_ERROR });
+};
+
+export const resetSignup = () => async (dispatch) => {
+    dispatch({ type: userActionTypes.SIGNUP_RESET });
 };
