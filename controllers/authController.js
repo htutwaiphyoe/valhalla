@@ -127,7 +127,7 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
         await user.save({ validateBeforeSave: false });
-        return next(new ErrorHandler("There was an error in sending mail", 500));
+        return next(new ErrorHandler(err, 500));
     }
 });
 
