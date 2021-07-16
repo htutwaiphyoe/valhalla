@@ -45,3 +45,42 @@ export const getLoggedInUser = catchAsyncError(async (req, res, next) => {
         },
     });
 });
+
+// update user profile
+export const updateUserProfile = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+        res.status(401).json({
+            status: "fail",
+            message: "You are not logged in.",
+        });
+    }
+
+    user.name = req.body.name;
+    user.email = req.body.email;
+
+    if (req.body.password) user.password = req.body.password;
+
+    if (req.body.avatar !== "") {
+        const image_id = user.avatar.public_id;
+        await cloudinary.v2.uploader.destroy(image_id);
+
+        const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "valhalla/avatar",
+            width: "150",
+            crop: "scale",
+        });
+
+        user.avatar = {
+            public_id: result.public_id,
+            url: resutl.secure_url,
+        };
+    }
+
+    await user.save();
+
+    res.status(201).json({
+        status: "success",
+        message: "Profile has been updated successfully",
+    });
+});
