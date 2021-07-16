@@ -65,7 +65,7 @@ const Navigation = (props) => {
                         ) : (
                             !loading && (
                                 <Link href="/login">
-                                    <a className="btn btn-danger px-3 text-white login-header-btn float-right">
+                                    <a className="btn px-3 text-white login-header-btn float-right">
                                         Login
                                     </a>
                                 </Link>

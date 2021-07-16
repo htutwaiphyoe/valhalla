@@ -35,7 +35,7 @@ export const loadUser = () => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: userActionTypes.LOAD_USER_FAIL,
-            error: err.response.data.message,
+            payload: err.response.data.message,
         });
     }
 };
@@ -49,7 +49,7 @@ export const updateUserProfile = (userData) => async (dispatch) => {
                 "Content-Type": "application/json",
             },
         });
-        console.log(response);
+
         dispatch({
             type: userActionTypes.UPDATE_PROFILE_SUCCESS,
             payload: response.data,
@@ -57,7 +57,7 @@ export const updateUserProfile = (userData) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: userActionTypes.UPDATE_PROFILE_FAIL,
-            error: err.response.data.message,
+            payload: err.response.data.message,
         });
     }
 };

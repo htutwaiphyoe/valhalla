@@ -1,35 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import validator from "validator";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-import { signup, clearError, resetSignup } from "../../redux/actions/userActions";
+import { updateUserProfile, clearError } from "../../redux/actions/userActions";
+import { signOut } from "next-auth/client";
 
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
 
-const Signup = (props) => {
-    const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
+const Profile = (props) => {
+    const { user } = props;
+    const [fullName, setFullName] = useState(user.name);
+    const [email, setEmail] = useState(user.email);
     const [password, setPassword] = useState("");
     const [avatar, setAvatar] = useState("");
-    const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.jpg");
+    const [avatarPreview, setAvatarPreview] = useState(user.avatar.url);
 
     const dispatch = useDispatch();
     const router = useRouter();
-    const { loading, success, error } = useSelector((state) => state.signup);
+    const { loading, message, error } = useSelector((state) => state.updateUser);
 
+    const logout = useCallback(async () => {
+        await signOut({ redirect: false, callbackUrl: "/login" });
+        router.replace("/login");
+    }, []);
     useEffect(() => {
-        if (success) {
-            toast.success(success);
-            dispatch(resetSignup());
-            router.replace("/login");
+        if (message) {
+            toast.success(message);
+            logout();
         }
         if (error) {
             toast.error(error);
             dispatch(clearError());
         }
-    }, [dispatch, success, error]);
+    }, [dispatch, message, error, logout]);
     const avatarChangeHandler = (e) => {
         const fileReader = new FileReader();
 
@@ -46,36 +51,35 @@ const Signup = (props) => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const isInputValid =
-            !fullName.trim() ||
-            !email.trim() ||
-            !password ||
-            !validator.isEmail(email) ||
-            password.length < 8 ||
-            fullName.length > 50;
+            !fullName.trim() || !email || !validator.isEmail(email) || fullName.trim().length > 50;
         if (isInputValid) {
-            toast.error("Please enter valid data, password must be at least 8 characters.");
+            toast.error("Please enter valid data");
             return;
         }
+        const pass = password.trim();
+
+        if (pass !== "") {
+            if (pass.length < 8) {
+                toast.error("password must be at least 8 characters.");
+                return;
+            }
+        }
+
         dispatch(
-            signup({
+            updateUserProfile({
                 name: fullName,
                 email,
                 password,
                 avatar,
             })
         );
-        setFullName("");
-        setEmail("");
-        setPassword("");
-        setAvatar("");
-        setAvatarPreview("/images/default_avatar.jpg");
     };
     return (
         <div className="container container-fluid">
             <div className="row wrapper">
                 <div className="col-12 col-lg-5">
                     <form className="shadow-lg" onSubmit={onSubmitHandler}>
-                        <h1 className="mb-3">Join Us</h1>
+                        <h1 className="mb-3">Update profile</h1>
 
                         <div className="form-group">
                             <label htmlFor="name_field">Full Name</label>
@@ -109,7 +113,6 @@ const Signup = (props) => {
                                 className="form-control"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value.trim())}
-                                required={true}
                             />
                         </div>
 
@@ -133,7 +136,6 @@ const Signup = (props) => {
                                         id="customFile"
                                         onChange={avatarChangeHandler}
                                         accept="image/*"
-                                        required={true}
                                         disabled={loading}
                                     />
                                     <label className="custom-file-label" htmlFor="customFile">
@@ -149,7 +151,7 @@ const Signup = (props) => {
                             className="btn btn-block py-3"
                             disabled={loading}
                         >
-                            {loading ? <ButtonLoader /> : "SIGNUP"}
+                            {loading ? <ButtonLoader /> : "UPDATE"}
                         </button>
                     </form>
                 </div>
@@ -158,4 +160,4 @@ const Signup = (props) => {
     );
 };
 
-export default Signup;
+export default Profile;

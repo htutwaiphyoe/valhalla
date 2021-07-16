@@ -73,7 +73,7 @@ export const updateUserProfile = catchAsyncError(async (req, res, next) => {
 
         user.avatar = {
             public_id: result.public_id,
-            url: resutl.secure_url,
+            url: result.secure_url,
         };
     }
 
@@ -81,6 +81,6 @@ export const updateUserProfile = catchAsyncError(async (req, res, next) => {
 
     res.status(201).json({
         status: "success",
-        message: "Profile has been updated successfully",
+        message: "Profile has been updated successfully, Please login!",
     });
 });
