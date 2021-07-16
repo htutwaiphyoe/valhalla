@@ -10,6 +10,7 @@ const rootReducer = combineReducers({
     loggedInUser: userReducer.loggedInUserReducer,
     updateUser: userReducer.updateUserReducer,
     forgotPassword: userReducer.forgotPasswordReducer,
+    resetPassword: userReducer.resetPasswordReducer,
 });
 
 export default rootReducer;

@@ -38,6 +38,8 @@ const Login = (props) => {
             setEmail("");
             setPassword("");
         } else {
+            setEmail("");
+            setPassword("");
             router.replace("/");
         }
     };

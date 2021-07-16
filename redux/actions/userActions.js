@@ -76,6 +76,7 @@ export const forgotPassword = (email) => async (dispatch) => {
             payload: response.data.message,
         });
     } catch (err) {
+        console.log(err.response);
         dispatch({
             type: userActionTypes.FORGOT_PASSWORD_FAILURE,
             payload: err.response.data.message,
@@ -83,6 +84,27 @@ export const forgotPassword = (email) => async (dispatch) => {
     }
 };
 
+// reset password action
+export const resetPassword = (token, passwords) => async (dispatch) => {
+    try {
+        dispatch({ type: userActionTypes.RESET_PASSWORD_REQUEST });
+        const response = await valhallaAxios.patch(`/api/password/reset/${token}`, passwords, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        dispatch({
+            type: userActionTypes.RESET_PASSWORD_SUCCESS,
+            payload: response.data.message,
+        });
+    } catch (err) {
+        dispatch({
+            type: userActionTypes.RESET_PASSWORD_FAILURE,
+            payload: err.response.data.message,
+        });
+    }
+};
 // clear error action
 export const clearError = () => async (dispatch) => {
     dispatch({ type: userActionTypes.CLEAR_ERROR });
