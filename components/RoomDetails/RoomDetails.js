@@ -1,8 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Carousel } from "react-bootstrap";
 import Image from "next/image";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { clearErrors } from "../../redux/actions/roomActions";
 
@@ -10,13 +12,19 @@ import RoomFeatures from "./RoomFeatures";
 import Meta from "../Layout/Meta/Meta";
 
 const RoomDetails = (props) => {
+    const [checkInDate, setCheckInDate] = useState();
+    const [checkOutDate, setCheckOutDate] = useState();
     const { room, error } = useSelector((state) => state.roomDetails);
     const dispatch = useDispatch();
     useEffect(() => {
         toast.error(error);
         dispatch(clearErrors());
     }, [error]);
-
+    const dateChangeHandler = (dates) => {
+        const [checkIn, checkOut] = dates;
+        setCheckInDate(checkIn);
+        setCheckOutDate(checkOut);
+    };
     return (
         <>
             <Meta title={`${room.name} - Hotel Valhalla`} description={`${room.description}`} />
@@ -70,7 +78,17 @@ const RoomDetails = (props) => {
                             <p className="price-per-night">
                                 <b>${room.pricePerNight}</b> / night
                             </p>
+                            <p className="mt-5 mb-3">Pick check in and check out dates</p>
 
+                            <DatePicker
+                                className="w-100"
+                                selected={checkInDate}
+                                startDate={checkInDate}
+                                endDate={checkOutDate}
+                                selectsRange
+                                inline
+                                onChange={dateChangeHandler}
+                            />
                             <button className="btn btn-block py-3 booking-btn">Pay</button>
                         </div>
                     </div>

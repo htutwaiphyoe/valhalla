@@ -112,3 +112,6 @@ create reset password api route /api/password/reset/:token, first get toke from 
 
 create ResetPassword component, reducer, action and page, redirect to login page if reset success
 
+create booking model
+
+add datepicker with react-datepicker in room detail page, check example in official websites, the one we use is Date range for one datepicker

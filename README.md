@@ -21,3 +21,4 @@
 -   next-auth
 -   nodemailer
 -   next-absolute-url
+-   react-datepicker
