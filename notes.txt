@@ -109,3 +109,6 @@ create ForgotPassword component, reducer, action and page and send email
 use SendGrid for real world email sending, get username and password in SMTP relay and configure server and auth user and password. to send real email, sender authentication is needed for sender email
 
 create reset password api route /api/password/reset/:token, first get toke from request query, hash with crypto and fetch user with hashed token and current time, check user exists, then check password match and save user
+
+create ResetPassword component, reducer, action and page, redirect to login page if reset success
+

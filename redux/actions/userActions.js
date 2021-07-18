@@ -76,7 +76,6 @@ export const forgotPassword = (email) => async (dispatch) => {
             payload: response.data.message,
         });
     } catch (err) {
-        console.log(err.response);
         dispatch({
             type: userActionTypes.FORGOT_PASSWORD_FAILURE,
             payload: err.response.data.message,
