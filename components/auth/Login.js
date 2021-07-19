@@ -40,6 +40,7 @@ const Login = (props) => {
         } else {
             setEmail("");
             setPassword("");
+            // window.location.href = "/";
             router.replace("/");
         }
     };

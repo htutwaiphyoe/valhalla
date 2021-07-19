@@ -29,7 +29,7 @@ export const addNewBooking = catchAsyncError(async (req, res, next) => {
 // check rooms availability
 
 export const checkRoomAvailability = catchAsyncError(async (req, res, next) => {
-    let { room, checkInDate, checkOutDate } = req.body;
+    let { room, checkInDate, checkOutDate } = req.query;
 
     checkInDate = new Date(checkInDate);
     checkOutDate = new Date(checkOutDate);
@@ -39,10 +39,10 @@ export const checkRoomAvailability = catchAsyncError(async (req, res, next) => {
         $and: [{ checkInDate: { $lte: checkOutDate } }, { checkOutDate: { $gte: checkInDate } }],
     });
 
-    console.log(bookings);
+    const isAvailable = bookings && bookings.length === 0;
 
     res.status(200).json({
         status: "success",
-        bookings,
+        isAvailable,
     });
 });

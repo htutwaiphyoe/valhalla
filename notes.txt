@@ -120,4 +120,4 @@ create api route for add new booking api/bookings, and create controller functio
 
 create api router for checking bookings api/bookings/check and create controller function
 
-create check bookings actionTypes,
+create check bookings actionTypes, reducer, actions, add minDate in datepicker to disable pass dates, dispatch checkBooking action when datepicker change and show relevent ui with isAvailable and session

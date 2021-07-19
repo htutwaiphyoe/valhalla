@@ -4,11 +4,14 @@ import { useRouter } from "next/router";
 const Navigation = (props) => {
     const router = useRouter();
     const [session, loading] = useSession();
+
     const logoutHandler = async () => {
         // logout without page reload and redirect to "/"
+        // signOut();
         const data = await signOut({ redirect: false, callbackUrl: "/" });
         router.replace(data.url);
     };
+
     return (
         <header className="sticky-top">
             <nav className="navbar row justify-content-center">

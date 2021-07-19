@@ -6,21 +6,29 @@ import Image from "next/image";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/dist/client/router";
+import { useSession } from "next-auth/client";
 
 import { clearErrors } from "../../redux/actions/roomActions";
+import { checkBooking, clearError } from "../../redux/actions/bookingActions";
 import valhallaAxios from "../../utils/valhallaAxios";
 
 import RoomFeatures from "./RoomFeatures";
 import Meta from "../Layout/Meta/Meta";
 
 const RoomDetails = (props) => {
+    const [session, loading] = useSession();
+    const dispatch = useDispatch();
+    const router = useRouter();
+
     const [checkInDate, setCheckInDate] = useState();
     const [checkOutDate, setCheckOutDate] = useState();
     const [daysOfStay, setDaysOfStay] = useState();
     const { room, error } = useSelector((state) => state.roomDetails);
-
-    const dispatch = useDispatch();
-    const router = useRouter();
+    const {
+        loading: bookingLoading,
+        error: bookingError,
+        isAvailable,
+    } = useSelector((state) => state.checkBooking);
 
     useEffect(() => {
         toast.error(error);
@@ -35,6 +43,8 @@ const RoomDetails = (props) => {
         if (checkIn && checkOut) {
             const days = Math.floor((new Date(checkOut) - new Date(checkIn)) / 86400000) + 1;
             setDaysOfStay(days);
+
+            dispatch(checkBooking(router.query.id, checkIn, checkOut));
         }
     };
 
@@ -121,16 +131,41 @@ const RoomDetails = (props) => {
                                 selected={checkInDate}
                                 startDate={checkInDate}
                                 endDate={checkOutDate}
+                                minDate={new Date()}
                                 selectsRange
                                 inline
                                 onChange={dateChangeHandler}
                             />
-                            <button
-                                className="btn btn-block py-3 booking-btn"
-                                onClick={bookingHandler}
-                            >
-                                Pay
-                            </button>
+
+                            {isAvailable === true && (
+                                <div className="alert alert-success my-3 font-weight-bold">
+                                    Room is available. Book now.
+                                </div>
+                            )}
+
+                            {isAvailable === false && (
+                                <div className="alert alert-danger my-3 font-weight-bold">
+                                    Room not available. Try different dates.
+                                </div>
+                            )}
+
+                            {isAvailable && !session && (
+                                <button
+                                    className="btn btn-block py-3 booking-btn"
+                                    onClick={() => router.push("/login")}
+                                >
+                                    Login to book
+                                </button>
+                            )}
+
+                            {isAvailable && session && (
+                                <button
+                                    className="btn btn-block py-3 booking-btn"
+                                    onClick={bookingHandler}
+                                >
+                                    Pay
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
