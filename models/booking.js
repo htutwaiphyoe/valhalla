@@ -38,7 +38,7 @@ const bookingSchema = new mongoose.Schema({
             type: String,
             required: true,
         },
-        statue: {
+        status: {
             type: String,
             required: true,
         },

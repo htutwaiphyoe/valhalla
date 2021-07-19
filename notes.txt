@@ -115,3 +115,5 @@ create ResetPassword component, reducer, action and page, redirect to login page
 create booking model
 
 add datepicker with react-datepicker in room detail page, check example in official websites, the one we use is Date range for one datepicker
+
+create api route for add new booking api/bookings, and create controller function and test in RoomDetails

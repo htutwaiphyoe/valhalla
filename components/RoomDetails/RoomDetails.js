@@ -5,8 +5,10 @@ import { Carousel } from "react-bootstrap";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useRouter } from "next/dist/client/router";
 
 import { clearErrors } from "../../redux/actions/roomActions";
+import valhallaAxios from "../../utils/valhallaAxios";
 
 import RoomFeatures from "./RoomFeatures";
 import Meta from "../Layout/Meta/Meta";
@@ -14,16 +16,50 @@ import Meta from "../Layout/Meta/Meta";
 const RoomDetails = (props) => {
     const [checkInDate, setCheckInDate] = useState();
     const [checkOutDate, setCheckOutDate] = useState();
+    const [daysOfStay, setDaysOfStay] = useState();
     const { room, error } = useSelector((state) => state.roomDetails);
+
     const dispatch = useDispatch();
+    const router = useRouter();
+
     useEffect(() => {
         toast.error(error);
         dispatch(clearErrors());
     }, [error]);
+
     const dateChangeHandler = (dates) => {
         const [checkIn, checkOut] = dates;
         setCheckInDate(checkIn);
         setCheckOutDate(checkOut);
+
+        if (checkIn && checkOut) {
+            const days = Math.floor((new Date(checkOut) - new Date(checkIn)) / 86400000) + 1;
+            setDaysOfStay(days);
+        }
+    };
+
+    const bookingHandler = async () => {
+        const bookingData = {
+            room: router.query.id,
+            checkInDate,
+            checkOutDate,
+            daysOfStay,
+            amountPaid: 90,
+            paymentInfo: {
+                id: "PAYMENT_ID",
+                status: "PAYMENT_STATUS",
+            },
+        };
+        try {
+            const response = await valhallaAxios.post("/api/bookings", bookingData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            console.log(response.data);
+        } catch (err) {
+            console.log(err.response.data);
+        }
     };
     return (
         <>
@@ -89,7 +125,12 @@ const RoomDetails = (props) => {
                                 inline
                                 onChange={dateChangeHandler}
                             />
-                            <button className="btn btn-block py-3 booking-btn">Pay</button>
+                            <button
+                                className="btn btn-block py-3 booking-btn"
+                                onClick={bookingHandler}
+                            >
+                                Pay
+                            </button>
                         </div>
                     </div>
                 </div>
