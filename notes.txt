@@ -117,3 +117,7 @@ create booking model
 add datepicker with react-datepicker in room detail page, check example in official websites, the one we use is Date range for one datepicker
 
 create api route for add new booking api/bookings, and create controller function and test in RoomDetails
+
+create api router for checking bookings api/bookings/check and create controller function
+
+create check bookings actionTypes,

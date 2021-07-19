@@ -2,6 +2,7 @@ import Booking from "../models/booking";
 import catchAsyncError from "../middlewares/catchAsyncError";
 import ErrorHandler from "../utils/errorHandler";
 
+// create new booking => POST: /api/bookings
 export const addNewBooking = catchAsyncError(async (req, res, next) => {
     const { room, checkInDate, checkOutDate, daysOfStay, amountPaid, paymentInfo } = req.body;
 
@@ -22,5 +23,26 @@ export const addNewBooking = catchAsyncError(async (req, res, next) => {
         data: {
             booking: newBooking,
         },
+    });
+});
+
+// check rooms availability
+
+export const checkRoomAvailability = catchAsyncError(async (req, res, next) => {
+    let { room, checkInDate, checkOutDate } = req.body;
+
+    checkInDate = new Date(checkInDate);
+    checkOutDate = new Date(checkOutDate);
+
+    const bookings = await Booking.find({
+        room,
+        $and: [{ checkInDate: { $lte: checkOutDate } }, { checkOutDate: { $gte: checkInDate } }],
+    });
+
+    console.log(bookings);
+
+    res.status(200).json({
+        status: "success",
+        bookings,
     });
 });
