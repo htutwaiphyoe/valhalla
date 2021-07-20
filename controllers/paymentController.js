@@ -53,72 +53,36 @@ export const createNewBookingWithWebHook = catchAsyncError(async (req, res, next
             signature,
             process.env.STRIPE_WEBHOOK_SECRET
         );
-        // const e = {
-        //     data: {
-        //         object: {
-        //             id: "cs_test_a1SeHVLzf5J4QbH0MOg22oH3J85VlxEhfFMBFzRA1LljT7S4U8vAacvVOa",
-        //             object: "checkout.session",
-        //             allow_promotion_codes: null,
-        //             amount_subtotal: 28500,
-        //             amount_total: 28500,
-        //             automatic_tax: [Object],
-        //             billing_address_collection: null,
-        //             cancel_url: "https://hotelvalhalla.vercel.app/room/60e6e0d5e1d0020fa8d2cd36",
-        //             client_reference_id: "60e6e0d5e1d0020fa8d2cd36",
-        //             currency: "usd",
-        //             customer: "cus_Jt5gJ0zvuCMNV0",
-        //             customer_details: [Object],
-        //             customer_email: "user2@valhalla.com",
-        //             display_items: [Array],
-        //             livemode: false,
-        //             locale: null,
-        //             metadata: [Object],
-        //             mode: "payment",
-        //             payment_intent: "pi_1JFJUUIu5rogl5wkxfnL8K9I",
-        //             payment_method_options: {},
-        //             payment_method_types: [Array],
-        //             payment_status: "paid",
-        //             setup_intent: null,
-        //             shipping: null,
-        //             shipping_address_collection: null,
-        //             submit_type: null,
-        //             subscription: null,
-        //             success_url: "https://hotelvalhalla.vercel.app/bookings",
-        //             total_details: [Object],
-        //             url: null,
-        //         },
-        //     },
-        // };
 
         if (event.type === "checkout.session.completed") {
             const session = event.data.object;
             console.log(session);
-            //     const room = session.client_reference_id;
+            const room = session.client_reference_id;
 
-            //     const user = (await User.findOne({ email: session.customer_email })).id;
+            const user = (await User.findOne({ email: session.customer_email })).id;
 
-            //     const amountPaid = session.amount_total / 100;
+            const amountPaid = session.amount_total / 100;
 
-            //     const paymentInfo = {
-            //         id: session.payment_intent,
-            //         status: session.payment_status,
-            //     };
+            const paymentInfo = {
+                id: session.payment_intent,
+                status: session.payment_status,
+            };
 
-            //     const checkInDate = sesssion.metadata.checkInDate;
-            //     const checkOutDate = sesssion.metadata.checkOutDate;
-            //     const daysOfStay = sesssion.metadata.daysOfStay;
+            const checkInDate = sesssion.metadata.checkInDate;
+            const checkOutDate = sesssion.metadata.checkOutDate;
+            const daysOfStay = sesssion.metadata.daysOfStay;
 
-            //     const booking = await Booking.create({
-            //         room,
-            //         user,
-            //         checkInDate,
-            //         checkOutDate,
-            //         daysOfStay,
-            //         amountPaid,
-            //         paymentInfo,
-            //         paidAt: Date.now(),
-            //     });
-
+            const booking = await Booking.create({
+                room,
+                user,
+                checkInDate,
+                checkOutDate,
+                daysOfStay,
+                amountPaid,
+                paymentInfo,
+                paidAt: Date.now(),
+            });
+            console.log(booking);
             res.status(200).json({
                 status: "success",
                 message: "Booking success",
