@@ -135,3 +135,8 @@ create api route for get all bookings of current user /api/bookings/me, create c
 create api router for getting booking details and controller function, create reducer, actionTypes and actions
 
 create BookingDetails component and page
+
+generating booking invoice pdf with easyinvoice
+
+for payment, Stripe is used. make an account and get API key and SECRET key and create api route for stripe session
+

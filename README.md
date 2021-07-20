@@ -27,3 +27,4 @@
 -   mongoose-timezone
 -   easyinvoice
 -   mdbreact
+-   stripe
