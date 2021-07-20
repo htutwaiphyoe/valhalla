@@ -1,9 +1,9 @@
 import nc from "next-connect";
 
-import dbConnect from "../../../config/dbConnect";
-import onError from "../../../middlewares/globalError";
+import dbConnect from "../../config/dbConnect";
+import onError from "../../middlewares/globalError";
 
-import { createNewBookingWithWebHook } from "../../../controllers/paymentController";
+import { createNewBookingWithWebHook } from "../../controllers/paymentController";
 
 const handler = nc({ onError });
 
