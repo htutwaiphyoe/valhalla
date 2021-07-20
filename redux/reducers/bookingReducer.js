@@ -50,3 +50,17 @@ export const myBookingsReducer = (state = { myBookings: [], error: null }, actio
             return state;
     }
 };
+
+// booking details reducer
+export const bookingDetailsReducer = (state = { bookingDetails: {}, error: null }, action) => {
+    switch (action.type) {
+        case bookingActionTypes.BOOKING_DETAILS_SUCCESS:
+            return updateState(state, { bookingDetails: action.payload.booking });
+        case bookingActionTypes.BOOKING_DETAILS_FAILURE:
+            return updateState(state, { error: action.payload });
+        case bookingActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};

@@ -96,3 +96,21 @@ export const getAllBookingsByCurrentUser = catchAsyncError(async (req, res, next
         bookings,
     });
 });
+
+// get booking details => GET: /api/bookings/:id
+export const getBookingDetails = catchAsyncError(async (req, res, next) => {
+    const booking = await Booking.findById(req.query.id)
+        .populate({
+            path: "room",
+            select: "name pricePerNight images",
+        })
+        .populate({
+            path: "user",
+            select: "name email",
+        });
+
+    res.status(200).json({
+        status: "success",
+        booking,
+    });
+});

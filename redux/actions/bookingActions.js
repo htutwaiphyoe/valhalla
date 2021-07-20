@@ -62,6 +62,27 @@ export const getMyBookings = (cookie) => async (dispatch) => {
     }
 };
 
+// get booking details
+export const getBookingDetails = (cookie, bookingId) => async (dispatch) => {
+    try {
+        const response = await valhallaAxios.get(`/api/bookings/${bookingId}`, {
+            headers: {
+                cookie,
+            },
+        });
+
+        dispatch({
+            type: bookingActionTypes.BOOKING_DETAILS_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: bookingActionTypes.BOOKING_DETAILS_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear errors
 export const clearError = () => {
     return {
