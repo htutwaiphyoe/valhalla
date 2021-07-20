@@ -87,3 +87,12 @@ export const getBookedDatesByRoom = catchAsyncError(async (req, res, next) => {
         bookedDates,
     });
 });
+
+// get all bookings of current user
+export const getAllBookingsByCurrentUser = catchAsyncError(async (req, res, next) => {
+    const bookings = await Booking.find({ user: req.user._id });
+    res.status(200).json({
+        status: "success",
+        bookings,
+    });
+});

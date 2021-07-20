@@ -36,3 +36,17 @@ export const bookedDatesReducer = (state = { bookedDates: [], error: null }, act
             return state;
     }
 };
+
+// my booking reducer
+export const myBookingsReducer = (state = { myBookings: [], error: null }, action) => {
+    switch (action.type) {
+        case bookingActionTypes.MY_BOOKINGS_SUCCESS:
+            return updateState(state, { myBookings: action.payload.bookings });
+        case bookingActionTypes.MY_BOOKINGS_FAILURE:
+            return updateState(state, { error: action.payload });
+        case bookingActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};

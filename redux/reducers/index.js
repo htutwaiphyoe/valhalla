@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
     resetPassword: userReducer.resetPasswordReducer,
     checkBooking: bookingReducer.checkBookingReducer,
     bookedDates: bookingReducer.bookedDatesReducer,
+    myBookings: bookingReducer.myBookingsReducer,
 });
 
 export default rootReducer;

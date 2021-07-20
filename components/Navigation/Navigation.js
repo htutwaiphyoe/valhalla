@@ -49,7 +49,7 @@ const Navigation = (props) => {
                                     style={{ right: "0", minWidth: "5rem" }}
                                     aria-labelledby="dropDownMenuButton"
                                 >
-                                    <Link href="/bookings/me">
+                                    <Link href="/bookings">
                                         <a className="dropdown-item">Bookings</a>
                                     </Link>
 

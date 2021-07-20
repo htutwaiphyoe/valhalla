@@ -41,6 +41,27 @@ export const getBookedDates = (room) => async (dispatch) => {
     }
 };
 
+// get my bookings action
+export const getMyBookings = (cookie) => async (dispatch) => {
+    try {
+        const response = await valhallaAxios.get(`/api/bookings/me`, {
+            headers: {
+                cookie,
+            },
+        });
+
+        dispatch({
+            type: bookingActionTypes.MY_BOOKINGS_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: bookingActionTypes.MY_BOOKINGS_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear errors
 export const clearError = () => {
     return {

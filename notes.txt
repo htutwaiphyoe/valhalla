@@ -129,3 +129,6 @@ by default, mongodb saves date with UTC, Coordinated Universal Time, so to save 
 to get user time zone, first add in database with Date.now() and add timezone difference in fetched data with moment().utcOffset() and moment(dates).add(timeDifference, "hours")
 
 create bookedDates reducer, action and actionTypes and use them in RoomDetails to disable, to disable, add excludedDates props in DatePicker Component. note excludedDates needs to be ISOString date
+
+create api route for get all bookings of current user /api/bookings/me, create controller function, reducer, actionTypes and action and Booking componenet and page
+
