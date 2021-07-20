@@ -52,7 +52,7 @@ export const myBookingsReducer = (state = { myBookings: [], error: null }, actio
 };
 
 // booking details reducer
-export const bookingDetailsReducer = (state = { bookingDetails: {}, error: null }, action) => {
+export const bookingDetailsReducer = (state = { bookingDetails: null, error: null }, action) => {
     switch (action.type) {
         case bookingActionTypes.BOOKING_DETAILS_SUCCESS:
             return updateState(state, { bookingDetails: action.payload.booking });

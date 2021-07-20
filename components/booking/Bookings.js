@@ -51,7 +51,6 @@ const Bookings = (props) => {
                         ))}
                 </tbody>
             </table>
-            {}
         </div>
     );
 };
