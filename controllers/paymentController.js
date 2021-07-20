@@ -54,40 +54,57 @@ export const createNewBookingWithWebHook = catchAsyncError(async (req, res, next
             process.env.STRIPE_WEBHOOK_SECRET
         );
 
-        if (event.type === "checkout.session.completed") {
-            const session = event.data.object;
+        console.log(event);
+        // const booking = await Booking.create({
+        //     room,
+        //     user,
+        //     checkInDate,
+        //     checkOutDate,
+        //     daysOfStay,
+        //     amountPaid,
+        //     paymentInfo,
+        //     paidAt: Date.now(),
+        // });
 
-            const room = session.client_reference_id;
+        res.status(200).json({
+            status: "success",
+            message: "Booking success",
+        });
 
-            const user = (await User.findOne({ email: session.customer_email })).id;
+        // if (event.type === "checkout.session.completed") {
+        //     const session = event.data.object;
 
-            const amountPaid = session.amount_total / 100;
+        //     const room = session.client_reference_id;
 
-            const paymentInfo = {
-                id: session.payment_intent,
-                status: session.payment_status,
-            };
+        //     const user = (await User.findOne({ email: session.customer_email })).id;
 
-            const checkInDate = sesssion.metadata.checkInDate;
-            const checkOutDate = sesssion.metadata.checkOutDate;
-            const daysOfStay = sesssion.metadata.daysOfStay;
+        //     const amountPaid = session.amount_total / 100;
 
-            const booking = await Booking.create({
-                room,
-                user,
-                checkInDate,
-                checkOutDate,
-                daysOfStay,
-                amountPaid,
-                paymentInfo,
-                paidAt: Date.now(),
-            });
+        //     const paymentInfo = {
+        //         id: session.payment_intent,
+        //         status: session.payment_status,
+        //     };
 
-            res.status(200).json({
-                status: "success",
-                message: "Booking success",
-            });
-        }
+        //     const checkInDate = sesssion.metadata.checkInDate;
+        //     const checkOutDate = sesssion.metadata.checkOutDate;
+        //     const daysOfStay = sesssion.metadata.daysOfStay;
+
+        //     const booking = await Booking.create({
+        //         room,
+        //         user,
+        //         checkInDate,
+        //         checkOutDate,
+        //         daysOfStay,
+        //         amountPaid,
+        //         paymentInfo,
+        //         paidAt: Date.now(),
+        //     });
+
+        //     res.status(200).json({
+        //         status: "success",
+        //         message: "Booking success",
+        //     });
+        // }
     } catch (err) {
         console.log("Error found in Payment", err);
     }
