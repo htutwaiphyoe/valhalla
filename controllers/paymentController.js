@@ -59,7 +59,7 @@ export const createNewBookingWithWebHook = catchAsyncError(async (req, res, next
 
             const room = session.client_reference_id;
 
-            const user = (await User.findOne({ email: session.customer_email }))._id;
+            const user = (await User.findOne({ email: session.customer_email })).id;
 
             const amountPaid = session.amount_total / 100;
 
@@ -89,6 +89,6 @@ export const createNewBookingWithWebHook = catchAsyncError(async (req, res, next
             });
         }
     } catch (err) {
-        console.log("Error found in Payment");
+        console.log("Error found in Payment", err);
     }
 });
