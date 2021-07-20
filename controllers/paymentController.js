@@ -55,33 +55,22 @@ export const createNewBookingWithWebHook = catchAsyncError(async (req, res, next
         );
 
         if (event.type === "checkout.session.completed") {
-            const session = event.data.object;
-            console.log(session);
-            const room = session.client_reference_id;
-
-            const user = (await User.findOne({ email: session.customer_email })).id;
-
-            const amountPaid = session.amount_total / 100;
-
-            const paymentInfo = {
-                id: session.payment_intent,
-                status: session.payment_status,
-            };
-
-            const checkInDate = sesssion.metadata.checkInDate;
-            const checkOutDate = sesssion.metadata.checkOutDate;
-            const daysOfStay = sesssion.metadata.daysOfStay;
-
-            const booking = await Booking.create({
-                room,
+            const user = (await User.findOne({ email: event.data.object.customer_email })).id;
+            const bookingData = {
+                room: event.data.object.client_reference_id,
                 user,
-                checkInDate,
-                checkOutDate,
-                daysOfStay,
-                amountPaid,
-                paymentInfo,
+                checkInDate: event.data.object.metadata.checkInDate,
+                checkOutDate: event.data.object.metadata.checkOutDate,
+                daysOfStay: event.data.object.metadata.daysOfStay,
+                amountPaid: event.data.object.amount_total / 100,
+                paymentInfo: {
+                    id: event.data.object.payment_intent,
+                    status: event.data.object.payment_status,
+                },
                 paidAt: Date.now(),
-            });
+            };
+            console.log(user, bookingData);
+            const booking = await Booking.create(bookingData);
             console.log(booking);
             res.status(200).json({
                 status: "success",
