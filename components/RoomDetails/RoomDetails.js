@@ -9,8 +9,13 @@ import { useRouter } from "next/dist/client/router";
 import { useSession } from "next-auth/client";
 
 import { clearErrors } from "../../redux/actions/roomActions";
-import { checkBooking, clearError, getBookedDates } from "../../redux/actions/bookingActions";
+import {
+    checkBooking,
+    getBookedDates,
+    checkBookingReset,
+} from "../../redux/actions/bookingActions";
 import valhallaAxios from "../../utils/valhallaAxios";
+import getStripe from "../../utils/getStripe";
 
 import RoomFeatures from "./RoomFeatures";
 import Meta from "../Layout/Meta/Meta";
@@ -23,6 +28,7 @@ const RoomDetails = (props) => {
     const [checkInDate, setCheckInDate] = useState();
     const [checkOutDate, setCheckOutDate] = useState();
     const [daysOfStay, setDaysOfStay] = useState();
+    const [paymentLoading, setPaymentLoading] = useState(false);
     const { room, error } = useSelector((state) => state.roomDetails);
     const { bookedDates } = useSelector((state) => state.bookedDates);
     const {
@@ -32,12 +38,16 @@ const RoomDetails = (props) => {
     } = useSelector((state) => state.checkBooking);
 
     useEffect(() => {
-        toast.error(error);
+        if (bookingError) toast.error(bookingError);
+        if (error) toast.error(error);
         dispatch(clearErrors());
-    }, [error]);
+    }, [error, bookingError]);
 
     useEffect(() => {
         dispatch(getBookedDates(router.query.id));
+        return () => {
+            dispatch(checkBookingReset());
+        };
     }, []);
 
     const dateChangeHandler = (dates) => {
@@ -53,27 +63,29 @@ const RoomDetails = (props) => {
         }
     };
 
-    const bookingHandler = async () => {
-        const bookingData = {
-            room: router.query.id,
-            checkInDate,
-            checkOutDate,
-            daysOfStay,
-            amountPaid: 90,
-            paymentInfo: {
-                id: "PAYMENT_ID",
-                status: "PAYMENT_STATUS",
-            },
-        };
+    const bookingHandler = async (id, pricePerNight) => {
+        setPaymentLoading(true);
+
         try {
-            const response = await valhallaAxios.post("/api/bookings", bookingData, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-            console.log(response.data);
+            const response = await valhallaAxios.get(
+                `/api/checkout/${id}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&daysOfStay=${daysOfStay}`,
+                {
+                    params: {
+                        amount: daysOfStay * pricePerNight,
+                    },
+                }
+            );
+
+            const stripe = await getStripe();
+
+            // redirect to checkout page
+            await stripe.redirectToCheckout({ sessionId: response.data.session.id });
+
+            setPaymentLoading(false);
         } catch (err) {
-            console.log(err.response.data);
+            setPaymentLoading(false);
+            toast.error(err.message);
+            console.log(err);
         }
     };
     return (
@@ -167,9 +179,10 @@ const RoomDetails = (props) => {
                             {isAvailable && session && (
                                 <button
                                     className="btn btn-block py-3 booking-btn"
-                                    onClick={bookingHandler}
+                                    onClick={() => bookingHandler(room._id, room.pricePerNight)}
+                                    disabled={bookingLoading || paymentLoading}
                                 >
-                                    Pay
+                                    Pay - ${daysOfStay * room.pricePerNight}
                                 </button>
                             )}
                         </div>
@@ -205,3 +218,27 @@ const RoomDetails = (props) => {
 };
 
 export default RoomDetails;
+
+// const bookingHandler = async () => {
+//         const bookingData = {
+//             room: router.query.id,
+//             checkInDate,
+//             checkOutDate,
+//             daysOfStay,
+//             amountPaid: 90,
+//             paymentInfo: {
+//                 id: "PAYMENT_ID",
+//                 status: "PAYMENT_STATUS",
+//             },
+//         };
+//         try {
+//             const response = await valhallaAxios.post("/api/bookings", bookingData, {
+//                 headers: {
+//                     "Content-Type": "application/json",
+//                 },
+//             });
+//             console.log(response.data);
+//         } catch (err) {
+//             console.log(err.response.data);
+//         }
+//     };

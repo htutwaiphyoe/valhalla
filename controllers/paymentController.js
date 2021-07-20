@@ -13,6 +13,7 @@ export const getStripeCheckoutSession = catchAsyncError(async (req, res, next) =
     const room = await Room.findById(req.query.id);
 
     const { checkInDate, checkOutDate, daysOfStay } = req.query;
+
     // get origin
     const { origin } = absoluteUrl(req);
 

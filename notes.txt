@@ -140,3 +140,6 @@ generating booking invoice pdf with easyinvoice
 
 for payment, Stripe is used. make an account and get API key and SECRET key and create api route for stripe session
 
+to get stripe object, install stripe-js and load it with API key and redirect to stripe checkout when book
+
+to store booking in database, use stripe webhook which listens events of stripe

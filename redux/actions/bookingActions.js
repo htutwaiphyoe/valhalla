@@ -89,3 +89,10 @@ export const clearError = () => {
         type: bookingActionTypes.CLEAR_ERROR,
     };
 };
+
+// clear errors
+export const checkBookingReset = () => {
+    return {
+        type: bookingActionTypes.CHECK_BOOKING_RESET,
+    };
+};

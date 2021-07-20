@@ -28,3 +28,4 @@
 -   easyinvoice
 -   mdbreact
 -   stripe
+-   stripe-js
