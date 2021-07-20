@@ -25,3 +25,5 @@
 -   moment
 -   moment-range
 -   mongoose-timezone
+-   easyinvoice
+-   mdbreact

@@ -90,7 +90,15 @@ export const getBookedDatesByRoom = catchAsyncError(async (req, res, next) => {
 
 // get all bookings of current user
 export const getAllBookingsByCurrentUser = catchAsyncError(async (req, res, next) => {
-    const bookings = await Booking.find({ user: req.user._id });
+    const bookings = await Booking.find({ user: req.user._id })
+        .populate({
+            path: "room",
+            select: "name pricePerNight images",
+        })
+        .populate({
+            path: "user",
+            select: "name email",
+        });
     res.status(200).json({
         status: "success",
         bookings,

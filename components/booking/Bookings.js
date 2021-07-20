@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import easyinvoice from "easyinvoice";
+
+import { formatDate } from "../../utils/helpers";
 
 import { clearError } from "../../redux/actions/bookingActions";
 const Bookings = (props) => {
@@ -15,6 +18,48 @@ const Bookings = (props) => {
         }
     }, [dispatch, error]);
 
+    const downloadInvoice = async (booking) => {
+        const data = {
+            documentTitle: "Hotel Valhalla Booking Invoice", //Defaults to INVOICE
+            locale: "en-US", //Defaults to en-US, used for number formatting (see docs)
+            currency: "USD", //See documentation 'Locales and Currency' for more info
+            taxNotation: "vat", //or gst
+            marginTop: 25,
+            marginRight: 25,
+            marginLeft: 25,
+            marginBottom: 25,
+            logo: "https://public.easyinvoice.cloud/img/logo_en_original.png", //or base64
+            background: "https://public.easyinvoice.cloud/img/watermark-draft.jpg", //or base64 //img or pdf
+            sender: {
+                company: "Hotel Valhalla",
+                address: "Mandalay",
+                zip: "1234 AB",
+                city: "Mandalay",
+                country: "Myanmar",
+            },
+            client: {
+                company: booking.user.name,
+                address: booking.user.email,
+                zip: "",
+                city: `Check In: ${formatDate(booking.checkInDate)}`,
+                country: `Check Out: ${formatDate(booking.checkOutDate)}`,
+            },
+            invoiceNumber: booking._id,
+            invoiceDate: formatDate(Date.now()),
+            products: [
+                {
+                    quantity: booking.daysOfStay,
+                    description: booking.room.name,
+                    tax: 0,
+                    price: booking.room.pricePerNight,
+                },
+            ],
+            bottomNotice: "Thank you very much for your booking on Hotel Valhalla.",
+        };
+
+        const result = await easyinvoice.createInvoice(data);
+        easyinvoice.download(`booking-invoice.pdf`, result.pdf);
+    };
     return (
         <div className="container container-fluid overflow-auto">
             <h1 className="my-5">My Bookings</h1>
@@ -42,7 +87,10 @@ const Bookings = (props) => {
                                             </a>
                                         </Link>
 
-                                        <button className="btn btn-success ml-2">
+                                        <button
+                                            className="btn btn-success ml-2"
+                                            onClick={() => downloadInvoice(booking)}
+                                        >
                                             <i className="fa fa-download"></i>
                                         </button>
                                     </>
