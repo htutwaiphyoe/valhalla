@@ -1,4 +1,5 @@
 import absoluteUrl from "next-absolute-url";
+import getRawBody from "raw-body";
 
 import Room from "../models/room";
 import User from "../models/user";
@@ -40,4 +41,54 @@ export const getStripeCheckoutSession = catchAsyncError(async (req, res, next) =
         status: "success",
         session,
     });
+});
+
+// create new booking after payment => POST: /api/webhook
+export const createNewBookingWithWebHook = catchAsyncError(async (req, res, next) => {
+    try {
+        const rawBody = await getRawBody(req);
+        const signature = req.headers["stripe-signature"];
+        const event = stripe.webhooks.constructEvent(
+            rawBody,
+            signature,
+            process.env.STRIPE_WEBHOOK_SECRET
+        );
+
+        if (event.type === "checkout.session.completed") {
+            const session = event.data.object;
+
+            const room = session.client_reference_id;
+
+            const user = (await User.findOne({ email: session.customer_email }))._id;
+
+            const amountPaid = session.amount_total / 100;
+
+            const paymentInfo = {
+                id: session.payment_intent,
+                status: session.payment_status,
+            };
+
+            const checkInDate = sesssion.metadata.checkInDate;
+            const checkOutDate = sesssion.metadata.checkOutDate;
+            const daysOfStay = sesssion.metadata.daysOfStay;
+
+            const booking = await Booking.create({
+                room,
+                user,
+                checkInDate,
+                checkOutDate,
+                daysOfStay,
+                amountPaid,
+                paymentInfo,
+                paidAt: Date.now(),
+            });
+
+            res.status(200).json({
+                status: "success",
+                message: "Booking success",
+            });
+        }
+    } catch (err) {
+        console.log("Error found in Payment");
+    }
 });
