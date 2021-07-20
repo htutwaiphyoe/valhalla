@@ -62,10 +62,19 @@ export const getBookingDatesByRoom = catchAsyncError(async (req, res, next) => {
     // get dates in booking objects
     let bookingDates = [];
 
+    // to get users timezone
+    // moment().utcOffset() return minutes which is difference between users timezone and current UTC
+    // for Myanmar, it returns 390 minutes which is 6 hours and 30 minutes
+    // to get hours, divide by 60
+    let timeDifference = moment().utcOffset() / 60;
+
     // loop throung arrays of booking objects
     bookings.forEach((booking) => {
+        // add timezone difference in fetched data
+        const checkInDate = moment(booking.checkInDate).add(timeDifference, "hours");
+        const checkOutDate = moment(booking.checkOutDate).add(timeDifference, "hours");
         // get date range with monment-range between checkIn and checkOut
-        const range = moment.range(moment(booking.checkInDate), moment(booking.checkOutDate));
+        const range = moment.range(moment(checkInDate), moment(checkOutDate));
 
         // range return start and end
         // get days in range with range.by("day")

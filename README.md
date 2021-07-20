@@ -22,3 +22,6 @@
 -   nodemailer
 -   next-absolute-url
 -   react-datepicker
+-   moment
+-   moment-range
+-   mongoose-timezone
