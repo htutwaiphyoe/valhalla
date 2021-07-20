@@ -9,7 +9,7 @@ import { useRouter } from "next/dist/client/router";
 import { useSession } from "next-auth/client";
 
 import { clearErrors } from "../../redux/actions/roomActions";
-import { checkBooking, clearError } from "../../redux/actions/bookingActions";
+import { checkBooking, clearError, getBookedDates } from "../../redux/actions/bookingActions";
 import valhallaAxios from "../../utils/valhallaAxios";
 
 import RoomFeatures from "./RoomFeatures";
@@ -24,6 +24,7 @@ const RoomDetails = (props) => {
     const [checkOutDate, setCheckOutDate] = useState();
     const [daysOfStay, setDaysOfStay] = useState();
     const { room, error } = useSelector((state) => state.roomDetails);
+    const { bookedDates } = useSelector((state) => state.bookedDates);
     const {
         loading: bookingLoading,
         error: bookingError,
@@ -34,6 +35,10 @@ const RoomDetails = (props) => {
         toast.error(error);
         dispatch(clearErrors());
     }, [error]);
+
+    useEffect(() => {
+        dispatch(getBookedDates(router.query.id));
+    }, []);
 
     const dateChangeHandler = (dates) => {
         const [checkIn, checkOut] = dates;
@@ -132,6 +137,7 @@ const RoomDetails = (props) => {
                                 startDate={checkInDate}
                                 endDate={checkOutDate}
                                 minDate={new Date()}
+                                excludeDates={bookedDates.map((date) => new Date(date))}
                                 selectsRange
                                 inline
                                 onChange={dateChangeHandler}

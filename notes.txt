@@ -127,3 +127,5 @@ create api route for getting bookingdates /api/bookings/dates, create controller
 by default, mongodb saves date with UTC, Coordinated Universal Time, so to save users timezone use mongoose-timezone and plug it in schema. it saves in database with users timezone but there is stil a problem when fetching that data from mongodb. mongodb also use UTC when fetch dates, so even data is already in user timezone, fetched data shows with UTC timezone
 
 to get user time zone, first add in database with Date.now() and add timezone difference in fetched data with moment().utcOffset() and moment(dates).add(timeDifference, "hours")
+
+create bookedDates reducer, action and actionTypes and use them in RoomDetails to disable, to disable, add excludedDates props in DatePicker Component. note excludedDates needs to be ISOString date

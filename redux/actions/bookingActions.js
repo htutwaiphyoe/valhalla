@@ -24,6 +24,23 @@ export const checkBooking = (room, checkInDate, checkOutDate) => async (dispatch
     }
 };
 
+// get booked dates action
+export const getBookedDates = (room) => async (dispatch) => {
+    try {
+        const response = await valhallaAxios.get(`/api/bookings/dates?room=${room}`);
+
+        dispatch({
+            type: bookingActionTypes.BOOKED_DATES_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: bookingActionTypes.BOOKED_DATES_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear errors
 export const clearError = () => {
     return {

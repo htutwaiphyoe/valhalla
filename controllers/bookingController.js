@@ -52,7 +52,7 @@ export const checkRoomAvailability = catchAsyncError(async (req, res, next) => {
 });
 
 // get booking dates of a room => GET: /api/bookings/dates?room=[roomid]
-export const getBookingDatesByRoom = catchAsyncError(async (req, res, next) => {
+export const getBookedDatesByRoom = catchAsyncError(async (req, res, next) => {
     // get room id from query
     const { room } = req.query;
 
@@ -60,7 +60,7 @@ export const getBookingDatesByRoom = catchAsyncError(async (req, res, next) => {
     const bookings = await Booking.find({ room });
 
     // get dates in booking objects
-    let bookingDates = [];
+    let bookedDates = [];
 
     // to get users timezone
     // moment().utcOffset() return minutes which is difference between users timezone and current UTC
@@ -79,11 +79,11 @@ export const getBookingDatesByRoom = catchAsyncError(async (req, res, next) => {
         // range return start and end
         // get days in range with range.by("day")
         // transform to array of days and add to dates
-        bookingDates = [...bookingDates, ...Array.from(range.by("day"))];
+        bookedDates = [...bookedDates, ...Array.from(range.by("day"))];
     });
 
     res.status(200).json({
         status: "success",
-        bookingDates,
+        bookedDates,
     });
 });

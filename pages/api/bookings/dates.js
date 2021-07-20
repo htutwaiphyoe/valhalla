@@ -2,12 +2,12 @@ import nc from "next-connect";
 
 import dbConnect from "../../../config/dbConnect";
 import onError from "../../../middlewares/globalError";
-import { getBookingDatesByRoom } from "../../../controllers/bookingController";
+import { getBookedDatesByRoom } from "../../../controllers/bookingController";
 
 const handler = nc({ onError });
 
 dbConnect();
 
-handler.get(getBookingDatesByRoom);
+handler.get(getBookedDatesByRoom);
 
 export default handler;

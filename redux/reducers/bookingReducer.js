@@ -1,5 +1,6 @@
 import * as bookingActionTypes from "../actionTypes/bookingActionTypes";
 import { updateState } from "../../utils/helpers";
+import booking from "../../models/booking";
 
 // check booking reducer
 export const checkBookingReducer = (
@@ -15,6 +16,20 @@ export const checkBookingReducer = (
             return updateState(state, { loading: false, error: action.payload });
         case bookingActionTypes.CHECK_BOOKING_RESET:
             return updateState(state, { loading: false, error: null, isAvailable: null });
+        case bookingActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};
+
+// booked dates reducer
+export const bookedDatesReducer = (state = { bookedDates: [], error: null }, action) => {
+    switch (action.type) {
+        case bookingActionTypes.BOOKED_DATES_SUCCESS:
+            return updateState(state, { bookedDates: action.payload.bookedDates });
+        case bookingActionTypes.BOOKED_DATES_FAILURE:
+            return updateState(state, { error: action.payload });
         case bookingActionTypes.CLEAR_ERROR:
             return updateState(state, { error: null });
         default:
