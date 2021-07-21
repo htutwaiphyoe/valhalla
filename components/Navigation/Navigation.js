@@ -41,7 +41,7 @@ const Navigation = (props) => {
                                             className="rounded-circle"
                                         />
                                     </figure>
-                                    <span>{session.user.name}</span>
+                                    <span>{session.user.name.substring(0, 6)}</span>
                                 </a>
 
                                 <div

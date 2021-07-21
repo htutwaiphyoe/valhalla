@@ -408,6 +408,7 @@ nav {
     font-size: 3rem;
     padding-left: 0.9rem;
     color: #e3e3e3;
+    cursor: pointer;
 }
 
 .star:first-child {
@@ -419,7 +420,7 @@ nav {
 }
 
 .light-red {
-    color: #f74f77;
+    color: hsl(250, 65%, 70%);
 }
 
 /* Footer */

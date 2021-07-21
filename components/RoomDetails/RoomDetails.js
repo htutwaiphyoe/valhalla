@@ -18,6 +18,7 @@ import valhallaAxios from "../../utils/valhallaAxios";
 import getStripe from "../../utils/getStripe";
 
 import RoomFeatures from "./RoomFeatures";
+import NewReview from "../review/NewReview";
 import Meta from "../Layout/Meta/Meta";
 
 const RoomDetails = (props) => {
@@ -85,7 +86,6 @@ const RoomDetails = (props) => {
         } catch (err) {
             setPaymentLoading(false);
             toast.error(err.message);
-            console.log(err);
         }
     };
     return (
@@ -188,6 +188,7 @@ const RoomDetails = (props) => {
                         </div>
                     </div>
                 </div>
+                <NewReview />
 
                 <div className="reviews w-75">
                     <h3>Reviews:</h3>
