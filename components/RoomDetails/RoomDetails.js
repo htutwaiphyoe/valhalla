@@ -19,6 +19,7 @@ import getStripe from "../../utils/getStripe";
 
 import RoomFeatures from "./RoomFeatures";
 import NewReview from "../review/NewReview";
+import ReviewList from "../review/ReviewList";
 import Meta from "../Layout/Meta/Meta";
 
 const RoomDetails = (props) => {
@@ -190,29 +191,11 @@ const RoomDetails = (props) => {
                 </div>
                 <NewReview />
 
-                <div className="reviews w-75">
-                    <h3>Reviews:</h3>
-                    <hr />
-                    <div className="review-card my-3">
-                        <div className="rating-outer">
-                            <div className="rating-inner"></div>
-                        </div>
-                        <p className="review_user">by John</p>
-                        <p className="review_comment">Good Quality</p>
-
-                        <hr />
-                    </div>
-
-                    <div className="review-card my-3">
-                        <div className="rating-outer">
-                            <div className="rating-inner"></div>
-                        </div>
-                        <p className="review_user">by John</p>
-                        <p className="review_comment">Good Quality</p>
-
-                        <hr />
-                    </div>
-                </div>
+                {room.reviews && room.reviews.length > 0 ? (
+                    <ReviewList reviews={room.reviews} />
+                ) : (
+                    <p>No reviews for this room!</p>
+                )}
             </div>
         </>
     );
