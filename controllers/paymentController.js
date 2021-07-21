@@ -69,9 +69,9 @@ export const createNewBookingWithWebHook = catchAsyncError(async (req, res, next
                 },
                 paidAt: Date.now(),
             };
-            console.log(user, bookingData);
+            
             const booking = await Booking.create(bookingData);
-            console.log(booking);
+           
             res.status(200).json({
                 status: "success",
                 message: "Booking success",
