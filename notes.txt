@@ -148,4 +148,6 @@ create api router for new review  /api/reviews, create reducer, actions and acti
 
 create NewReview component and submit review and show all reviews for a particular room
 
-to show review button check user has booking for that room. create api route for getting bookings by userid and roomid
+to show review button check user has booking for that room. create api route for getting bookings by userid and roomid and dispatch when room details load and review button submit
+
+add custom 404 page
