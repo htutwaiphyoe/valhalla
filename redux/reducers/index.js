@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
     bookedDates: bookingReducer.bookedDatesReducer,
     myBookings: bookingReducer.myBookingsReducer,
     bookingDetails: bookingReducer.bookingDetailsReducer,
+    hasBookings: bookingReducer.hasBookingsReducer,
     newReview: reviewReducer.newReviewReducer,
 });
 

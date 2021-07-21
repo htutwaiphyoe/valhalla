@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { createNewReview, clearError, resetReview } from "../../redux/actions/reviewActions";
+import { getRoomDetails } from "../../redux/actions/roomActions";
 
 const NewReview = (props) => {
     // hooks
@@ -23,7 +24,7 @@ const NewReview = (props) => {
         if (message) {
             toast.success(message);
             dispatch(resetReview());
-            router.replace(`/rooms/${router.query.id}`);
+            dispatch(getRoomDetails(router.query.id));
         }
     }, [dispatch, error, message]);
 

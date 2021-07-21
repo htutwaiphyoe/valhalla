@@ -122,3 +122,17 @@ export const getBookingDetails = catchAsyncError(async (req, res, next) => {
         booking,
     });
 });
+
+// get bookings by user and room => GET: /api/bookings/room/:id
+export const getBookingsByUserIdAndRoomId = catchAsyncError(async (req, res, next) => {
+    const { id } = req.query;
+
+    const bookings = await Booking.find({ user: req.user._id, room: id });
+
+    const hasBookings = bookings.length > 0;
+
+    res.status(200).json({
+        status: "success",
+        hasBookings,
+    });
+});

@@ -13,6 +13,7 @@ import {
     checkBooking,
     getBookedDates,
     checkBookingReset,
+    getBookingsByUserIdAndRoomId,
 } from "../../redux/actions/bookingActions";
 import valhallaAxios from "../../utils/valhallaAxios";
 import getStripe from "../../utils/getStripe";
@@ -33,6 +34,7 @@ const RoomDetails = (props) => {
     const [paymentLoading, setPaymentLoading] = useState(false);
     const { room, error } = useSelector((state) => state.roomDetails);
     const { bookedDates } = useSelector((state) => state.bookedDates);
+    const { hasBookings } = useSelector((state) => state.hasBookings);
     const {
         loading: bookingLoading,
         error: bookingError,
@@ -45,12 +47,17 @@ const RoomDetails = (props) => {
         dispatch(clearErrors());
     }, [error, bookingError]);
 
+    const id = router.query.id;
     useEffect(() => {
-        dispatch(getBookedDates(router.query.id));
+        if (id !== undefined) {
+            dispatch(getBookedDates(id));
+            dispatch(getBookingsByUserIdAndRoomId(id));
+        }
+
         return () => {
             dispatch(checkBookingReset());
         };
-    }, []);
+    }, [id]);
 
     const dateChangeHandler = (dates) => {
         const [checkIn, checkOut] = dates;
@@ -189,7 +196,8 @@ const RoomDetails = (props) => {
                         </div>
                     </div>
                 </div>
-                <NewReview />
+
+                {hasBookings && <NewReview />}
 
                 {room.reviews && room.reviews.length > 0 ? (
                     <ReviewList reviews={room.reviews} />

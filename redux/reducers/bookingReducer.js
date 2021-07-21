@@ -64,3 +64,17 @@ export const bookingDetailsReducer = (state = { bookingDetails: null, error: nul
             return state;
     }
 };
+
+// has bookings reducer
+export const hasBookingsReducer = (state = { hasBookings: null, error: null }, action) => {
+    switch (action.type) {
+        case bookingActionTypes.HAS_BOOKINGS_SUCCESS:
+            return updateState(state, { hasBookings: action.payload.hasBookings });
+        case bookingActionTypes.HAS_BOOKINGS_FAILURE:
+            return updateState(state, { error: action.payload });
+        case bookingActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};
