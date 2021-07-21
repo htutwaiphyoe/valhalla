@@ -1,0 +1,7 @@
+// create new review
+export const NEW_REVIEW_REQUEST = "NEW_REVIEW_REQUEST";
+export const NEW_REVIEW_SUCCESS = "NEW_REVIEW_SUCCESS";
+export const NEW_REVIEW_FAILURE = "NEW_REVIEW_FAILURE";
+export const NEW_REVIEW_RESET = "NEW_REVIEW_RESET";
+
+export const CLEAR_ERROR = "CLEAR_ERROR";
