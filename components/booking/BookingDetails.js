@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/client";
 
 import { clearError } from "../../redux/actions/bookingActions";
 const BookingDetails = (props) => {
     const dispatch = useDispatch();
+    const [session, loading] = useSession();
 
     const { bookingDetails, error } = useSelector((state) => state.bookingDetails);
     useEffect(() => {
@@ -63,8 +65,15 @@ const BookingDetails = (props) => {
 
                             <h4 className="my-4 h5">Payment Status</h4>
                             <p className="greenColor">
-                                <b>Paid</b>
+                                <b>{bookingDetails.paymentInfo?.status}</b>
                             </p>
+
+                            {session && session.user.role === "admin" && (
+                                <p>
+                                    <strong>ID: </strong>
+                                    {bookingDetails.paymentInfo?.id}
+                                </p>
+                            )}
 
                             <h4 className="mt-5 mb-4 h5">Booked Room:</h4>
 
