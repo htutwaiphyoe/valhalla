@@ -1,3 +1,5 @@
+import cloudinary from "cloudinary";
+
 import Room from "../models/room";
 import ErrorHandler from "../utils/errorHandler";
 import catchAsyncError from "../middlewares/catchAsyncError";
@@ -24,14 +26,30 @@ export const getAllRooms = catchAsyncError(async (req, res, next) => {
     });
 });
 
-// POST => /api/rooms
+// POST => /api/admin/rooms
 export const createNewRoom = catchAsyncError(async (req, res) => {
+    const { images } = req.body;
+
+    const imageLinks = images.map(async (image) => {
+        const result = await cloudinary.v2.uploader.upload(image, {
+            folder: "valhalla/avatar",
+            width: "150",
+            crop: "scale",
+        });
+
+        return {
+            public_id: result.public_id,
+            url: result.secure_url,
+        };
+    });
+
+    req.body.images = imageLinks;
+
     const newRoom = await Room.create(req.body);
+
     res.status(201).json({
         status: "success",
-        data: {
-            data: newRoom,
-        },
+        message: "Room is created successfully!",
     });
 });
 

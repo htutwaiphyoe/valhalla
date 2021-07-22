@@ -50,9 +50,9 @@ const AllRooms = (props) => {
                                 rooms.map((room) => (
                                     <tr key={room._id}>
                                         <td style={{ fontSize: "12.5px" }}>{room._id}</td>
-                                        <td className="d-none d-lg-table-cell">{`$${room.name}`}</td>
+                                        <td className="d-none d-lg-table-cell">{`${room.name}`}</td>
                                         <td className="d-none d-md-table-cell">{`$${room.pricePerNight}`}</td>
-                                        <td className="d-none d-md-table-cell">{`$${room.category}`}</td>
+                                        <td className="d-none d-md-table-cell">{`${room.category}`}</td>
 
                                         <td>
                                             <>

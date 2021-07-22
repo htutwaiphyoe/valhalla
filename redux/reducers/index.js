@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
     hasBookings: bookingReducer.hasBookingsReducer,
     newReview: reviewReducer.newReviewReducer,
     allRoomsByAdmin: adminReducer.allRoomsReducer,
+    newRoom: adminReducer.newRoomReducer,
 });
 
 export default rootReducer;

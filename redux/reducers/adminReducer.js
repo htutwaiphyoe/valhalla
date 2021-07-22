@@ -16,3 +16,19 @@ export const allRoomsReducer = (state = { rooms: [], error: null, loading: false
             return state;
     }
 };
+
+// new room reducer
+export const newRoomReducer = (state = { message: "", error: null, loading: false }, action) => {
+    switch (action.type) {
+        case adminActionTypes.ADMIN_NEW_ROOM_REQUEST:
+            return updateState(state, { loading: true });
+        case adminActionTypes.ADMIN_NEW_ROOM_SUCCESS:
+            return updateState(state, { loading: false, message: action.payload.message });
+        case adminActionTypes.ADMIN_NEW_ROOM_FAILURE:
+            return updateState(state, { loading: false, error: action.payload });
+        case adminActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};

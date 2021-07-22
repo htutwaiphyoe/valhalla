@@ -153,3 +153,5 @@ to show review button check user has booking for that room. create api route for
 add custom 404 page
 
 create authorization middleware, api router for getting all rooms by admin and All Rooms component
+
+create api route for new room /api/rooms, controller, reducer, actionTypes and actions

@@ -19,6 +19,28 @@ export const getAllRoomsByAdmin = () => async (dispatch) => {
     }
 };
 
+// create new rooms by admin
+export const createNewRoomByAdmin = (roomData) => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_NEW_ROOM_REQUEST });
+        const response = await valhallaAxios.post(`/api/admin/rooms`, roomData, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        dispatch({
+            type: adminActionTypes.ADMIN_NEW_ROOM_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: adminActionTypes.ADMIN_NEW_ROOM_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear error
 export const clearError = () => {
     return {
