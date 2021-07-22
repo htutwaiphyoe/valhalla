@@ -210,27 +210,3 @@ const RoomDetails = (props) => {
 };
 
 export default RoomDetails;
-
-// const bookingHandler = async () => {
-//         const bookingData = {
-//             room: router.query.id,
-//             checkInDate,
-//             checkOutDate,
-//             daysOfStay,
-//             amountPaid: 90,
-//             paymentInfo: {
-//                 id: "PAYMENT_ID",
-//                 status: "PAYMENT_STATUS",
-//             },
-//         };
-//         try {
-//             const response = await valhallaAxios.post("/api/bookings", bookingData, {
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                 },
-//             });
-//             console.log(response.data);
-//         } catch (err) {
-//             console.log(err.response.data);
-//         }
-//     };

@@ -52,3 +52,21 @@ export const updateRoomReducer = (state = { message: "", error: null, loading: f
             return state;
     }
 };
+
+// delete room reducer
+export const deleteRoomReducer = (state = { message: "", error: null, loading: false }, action) => {
+    switch (action.type) {
+        case adminActionTypes.ADMIN_DELETE_ROOM_REQUEST:
+            return updateState(state, { loading: true });
+        case adminActionTypes.ADMIN_DELETE_ROOM_SUCCESS:
+            return updateState(state, { loading: false, message: action.payload.message });
+        case adminActionTypes.ADMIN_DELETE_ROOM_FAILURE:
+            return updateState(state, { loading: false, error: action.payload });
+        case adminActionTypes.ADMIN_DELETE_ROOM_RESET:
+            return updateState(state, { message: "", error: null, loading: false });
+        case adminActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};

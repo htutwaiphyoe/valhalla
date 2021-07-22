@@ -4,22 +4,41 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 
 import Loader from "../ui/Loader/Loader";
-import { getAllRoomsByAdmin } from "../../redux/actions/adminActions";
+import {
+    getAllRoomsByAdmin,
+    deleteRoomByAdmin,
+    resetDeleteRoom,
+} from "../../redux/actions/adminActions";
 
 const AllRooms = (props) => {
     const dispatch = useDispatch();
 
     const { rooms, error, loading } = useSelector((state) => state.allRoomsByAdmin);
+    const {
+        message,
+        error: deleteRoomError,
+        loading: deleteRoomLoading,
+    } = useSelector((state) => state.deleteRoom);
     useEffect(() => {
+        dispatch(getAllRoomsByAdmin());
         if (error) {
             toast.error(error);
             dispatch(clearError());
         }
-    }, [dispatch, error]);
 
-    useEffect(() => {
-        dispatch(getAllRoomsByAdmin());
-    }, []);
+        if (message) {
+            toast.success(message);
+            dispatch(resetDeleteRoom());
+        }
+        if (deleteRoomError) {
+            toast.error(deleteRoomError);
+            dispatch(clearError());
+        }
+    }, [dispatch, error, message, deleteRoomError]);
+
+    const buttonClickHandler = (id) => {
+        dispatch(deleteRoomByAdmin(id));
+    };
 
     return (
         <div className="container container-fluid overflow-auto">
@@ -72,7 +91,11 @@ const AllRooms = (props) => {
                                                     </a>
                                                 </Link>
 
-                                                <button className="btn btn-danger ml-2">
+                                                <button
+                                                    className="btn btn-danger ml-2"
+                                                    onClick={() => buttonClickHandler(room._id)}
+                                                    disabled={deleteRoomLoading}
+                                                >
                                                     <i className="fa fa-trash"></i>
                                                 </button>
                                             </>

@@ -34,7 +34,6 @@ export const createNewRoomByAdmin = (roomData) => async (dispatch) => {
             payload: response.data,
         });
     } catch (err) {
-        console.log(err.response);
         dispatch({
             type: adminActionTypes.ADMIN_NEW_ROOM_FAILURE,
             error: err.response.data.message,
@@ -58,9 +57,27 @@ export const updateRoomByAdmin = (roomId, roomData) => async (dispatch) => {
             payload: response.data,
         });
     } catch (err) {
-        console.log(err.response);
         dispatch({
             type: adminActionTypes.ADMIN_UPDATE_ROOM_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
+// delete room by admin
+export const deleteRoomByAdmin = (roomId) => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_DELETE_ROOM_REQUEST });
+
+        const response = await valhallaAxios.delete(`/api/admin/rooms/${roomId}`);
+
+        dispatch({
+            type: adminActionTypes.ADMIN_DELETE_ROOM_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: adminActionTypes.ADMIN_DELETE_ROOM_FAILURE,
             error: err.response.data.message,
         });
     }
@@ -84,5 +101,12 @@ export const resetNewRoom = () => {
 export const resetUpdateRoom = () => {
     return {
         type: adminActionTypes.ADMIN_UPDATE_ROOM_RESET,
+    };
+};
+
+// reset delete room
+export const resetDeleteRoom = () => {
+    return {
+        type: adminActionTypes.ADMIN_DELETE_ROOM_RESET,
     };
 };

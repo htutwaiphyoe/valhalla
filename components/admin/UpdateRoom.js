@@ -13,18 +13,18 @@ const UpdateRoom = (props) => {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    const [name, setName] = useState(room.name);
-    const [pricePerNight, setPricePerNight] = useState(room.pricePerNight);
-    const [description, setDescription] = useState(room.description);
-    const [address, setAddress] = useState(room.address);
-    const [category, setCategory] = useState(room.category);
-    const [guestCapacity, setGuestCapacity] = useState(room.guestCapacity);
-    const [numOfBeds, setNumOfBeds] = useState(room.numOfBeds);
-    const [internet, setInternet] = useState(room.internet);
-    const [breakfast, setBreakfast] = useState(room.breakfast);
-    const [airConditioned, setAirConditioned] = useState(room.airConditioned);
-    const [petsAllowed, setPetsAllowed] = useState(room.petsAllowed);
-    const [roomCleaning, setRoomCleaning] = useState(room.roomCleaning);
+    const [name, setName] = useState("");
+    const [pricePerNight, setPricePerNight] = useState(0);
+    const [description, setDescription] = useState("");
+    const [address, setAddress] = useState("");
+    const [category, setCategory] = useState("");
+    const [guestCapacity, setGuestCapacity] = useState(1);
+    const [numOfBeds, setNumOfBeds] = useState(1);
+    const [internet, setInternet] = useState(false);
+    const [breakfast, setBreakfast] = useState(false);
+    const [airConditioned, setAirConditioned] = useState(false);
+    const [petsAllowed, setPetsAllowed] = useState(false);
+    const [roomCleaning, setRoomCleaning] = useState(false);
     const [images, setImages] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
 

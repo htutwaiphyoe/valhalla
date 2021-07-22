@@ -23,6 +23,7 @@ const rootReducer = combineReducers({
     allRoomsByAdmin: adminReducer.allRoomsReducer,
     newRoom: adminReducer.newRoomReducer,
     updateRoom: adminReducer.updateRoomReducer,
+    deleteRoom: adminReducer.deleteRoomReducer,
 });
 
 export default rootReducer;
