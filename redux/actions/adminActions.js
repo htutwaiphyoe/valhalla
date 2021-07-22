@@ -120,6 +120,24 @@ export const deleteBookingByAdmin = (bookingId) => async (dispatch) => {
     }
 };
 
+// get all users by admin
+export const getAllUsersByAdmin = () => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_ALL_USERS_REQUEST });
+        const response = await valhallaAxios.get(`/api/admin/users`);
+
+        dispatch({
+            type: adminActionTypes.ADMIN_ALL_USERS_SUCCESS,
+            payload: response.data.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: adminActionTypes.ADMIN_ALL_USERS_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear error
 export const clearError = () => {
     return {

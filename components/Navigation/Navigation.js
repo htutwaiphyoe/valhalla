@@ -57,6 +57,9 @@ const Navigation = (props) => {
                                             <Link href="/admin/bookings">
                                                 <a className="dropdown-item">All Bookings</a>
                                             </Link>
+                                            <Link href="/admin/users">
+                                                <a className="dropdown-item">All Users</a>
+                                            </Link>
                                             <hr />
                                         </>
                                     )}

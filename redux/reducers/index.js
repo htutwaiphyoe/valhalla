@@ -25,6 +25,7 @@ const rootReducer = combineReducers({
     updateRoom: adminReducer.updateRoomReducer,
     delete: adminReducer.deleteReducer,
     allBookings: adminReducer.allBookingsReducer,
+    allUsers: adminReducer.allUsersReducer,
 });
 
 export default rootReducer;

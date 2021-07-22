@@ -163,3 +163,5 @@ create api route for delete room /api/admin/rooms/:roomId, controller, reducer, 
 create api router for get all bookings /api/admin/bookings, controller, reducer, actionTypes, actions and AllBookings component and page
 
 create api route for delete booking /api/admin/bookings/:bookingId, controller, reducer, actions and actionTypes
+
+create booking details page for admin

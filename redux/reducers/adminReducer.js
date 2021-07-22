@@ -93,3 +93,19 @@ export const allBookingsReducer = (
             return state;
     }
 };
+
+// All users reducer
+export const allUsersReducer = (state = { users: [], error: null, loading: false }, action) => {
+    switch (action.type) {
+        case adminActionTypes.ADMIN_ALL_USERS_REQUEST:
+            return updateState(state, { loading: true });
+        case adminActionTypes.ADMIN_ALL_USERS_SUCCESS:
+            return updateState(state, { loading: false, users: action.payload.users });
+        case adminActionTypes.ADMIN_ALL_USERS_FAILURE:
+            return updateState(state, { loading: false, error: action.payload });
+        case adminActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};
