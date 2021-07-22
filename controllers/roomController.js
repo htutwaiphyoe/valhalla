@@ -81,7 +81,7 @@ export const updateSingleRoom = catchAsyncError(async (req, res, next) => {
     }
 
     if (req.body.images) {
-        for (let i = 0; i <= room.images.length; i++) {
+        for (let i = 0; i < room.images.length; i++) {
             await cloudinary.v2.uploader.destroy(room.images[i].publicId);
         }
 

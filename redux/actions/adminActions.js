@@ -46,6 +46,7 @@ export const createNewRoomByAdmin = (roomData) => async (dispatch) => {
 export const updateRoomByAdmin = (roomId, roomData) => async (dispatch) => {
     try {
         dispatch({ type: adminActionTypes.ADMIN_UPDATE_ROOM_REQUEST });
+
         const response = await valhallaAxios.patch(`/api/admin/rooms/${roomId}`, roomData, {
             headers: {
                 "Content-Type": "application/json",
@@ -80,7 +81,7 @@ export const resetNewRoom = () => {
 };
 
 // reset update room
-export const resetNewRoom = () => {
+export const resetUpdateRoom = () => {
     return {
         type: adminActionTypes.ADMIN_UPDATE_ROOM_RESET,
     };

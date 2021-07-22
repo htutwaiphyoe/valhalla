@@ -5,40 +5,67 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
-import { createNewRoomByAdmin, resetNewRoom, clearError } from "../../redux/actions/adminActions";
-const NewRoom = (props) => {
+import { updateRoomByAdmin, resetUpdateRoom, clearError } from "../../redux/actions/adminActions";
+
+const UpdateRoom = (props) => {
+    const { room, error: roomDetailsError } = useSelector((state) => state.roomDetails);
+
     const router = useRouter();
     const dispatch = useDispatch();
 
-    const [name, setName] = useState("");
-    const [pricePerNight, setPricePerNight] = useState(0);
-    const [description, setDescription] = useState("");
-    const [address, setAddress] = useState("");
-    const [category, setCategory] = useState("King");
-    const [guestCapacity, setGuestCapacity] = useState(1);
-    const [numOfBeds, setNumOfBeds] = useState(1);
-    const [internet, setInternet] = useState(false);
-    const [breakfast, setBreakfast] = useState(false);
-    const [airConditioned, setAirConditioned] = useState(false);
-    const [petsAllowed, setPetsAllowed] = useState(false);
-    const [roomCleaning, setRoomCleaning] = useState(false);
+    const [name, setName] = useState(room.name);
+    const [pricePerNight, setPricePerNight] = useState(room.pricePerNight);
+    const [description, setDescription] = useState(room.description);
+    const [address, setAddress] = useState(room.address);
+    const [category, setCategory] = useState(room.category);
+    const [guestCapacity, setGuestCapacity] = useState(room.guestCapacity);
+    const [numOfBeds, setNumOfBeds] = useState(room.numOfBeds);
+    const [internet, setInternet] = useState(room.internet);
+    const [breakfast, setBreakfast] = useState(room.breakfast);
+    const [airConditioned, setAirConditioned] = useState(room.airConditioned);
+    const [petsAllowed, setPetsAllowed] = useState(room.petsAllowed);
+    const [roomCleaning, setRoomCleaning] = useState(room.roomCleaning);
     const [images, setImages] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
 
-    const { loading, error, message } = useSelector((state) => state.newRoom);
+    const { loading, error, message } = useSelector((state) => state.updateRoom);
 
     useEffect(() => {
         if (error) {
             toast.error(error);
             dispatch(clearError());
         }
+        if (roomDetailsError) {
+            toast.error(roomDetailsError);
+            dispatch(clearError());
+        }
 
         if (message) {
             toast.success(message);
-            dispatch(resetNewRoom());
+            dispatch(resetUpdateRoom());
             router.push("/admin/rooms");
         }
-    }, [dispatch, error, message]);
+    }, [dispatch, error, message, roomDetailsError]);
+    useEffect(() => {
+        if (room) {
+            setName(room.name);
+            setPricePerNight(room.pricePerNight);
+            setDescription(room.description);
+            setAddress(room.address);
+            setCategory(room.category);
+            setGuestCapacity(room.guestCapacity);
+            setNumOfBeds(room.numOfBeds);
+            setInternet(room.internet);
+            setBreakfast(room.breakfast);
+            setAirConditioned(room.airConditioned);
+            setPetsAllowed(room.petsAllowed);
+            setRoomCleaning(room.roomCleaning);
+        }
+        if (room.images) {
+            const imageUrls = room.images.map((image) => image.url);
+            setImagePreviews(imageUrls);
+        }
+    }, [room]);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -56,11 +83,11 @@ const NewRoom = (props) => {
             airConditioned,
             petsAllowed,
             roomCleaning,
-            images,
         };
 
-        if (images.length === 0) return toast.error("Please provide images");
-        dispatch(createNewRoomByAdmin(roomData));
+        if (images.length !== 0) roomData.images = images;
+
+        dispatch(updateRoomByAdmin(router.query.id, roomData));
     };
 
     const imagesChangeHandler = (e) => {
@@ -89,7 +116,7 @@ const NewRoom = (props) => {
                         encType="multipart/form-data"
                         onSubmit={submitHandler}
                     >
-                        <h1 className="mb-4">New Room</h1>
+                        <h1 className="mb-4">Update Room</h1>
                         <div className="form-group">
                             <label htmlFor="name_field">Name</label>
                             <input
@@ -186,6 +213,7 @@ const NewRoom = (props) => {
                                 type="checkbox"
                                 id="internet_checkbox"
                                 value={internet}
+                                checked={internet}
                                 onChange={(e) => setInternet(e.target.checked)}
                             />
                             <label className="form-check-label" htmlFor="internet_checkbox">
@@ -198,6 +226,7 @@ const NewRoom = (props) => {
                                 type="checkbox"
                                 id="breakfast_checkbox"
                                 value={breakfast}
+                                checked={breakfast}
                                 onChange={(e) => setBreakfast(e.target.checked)}
                             />
                             <label className="form-check-label" htmlFor="breakfast_checkbox">
@@ -210,6 +239,7 @@ const NewRoom = (props) => {
                                 type="checkbox"
                                 id="airConditioned_checkbox"
                                 value={airConditioned}
+                                checked={airConditioned}
                                 onChange={(e) => setAirConditioned(e.target.checked)}
                             />
                             <label className="form-check-label" htmlFor="airConditioned_checkbox">
@@ -222,6 +252,7 @@ const NewRoom = (props) => {
                                 type="checkbox"
                                 id="petsAllowed_checkbox"
                                 value={petsAllowed}
+                                checked={petsAllowed}
                                 onChange={(e) => setPetsAllowed(e.target.checked)}
                             />
                             <label className="form-check-label" htmlFor="petsAllowed_checkbox">
@@ -234,6 +265,7 @@ const NewRoom = (props) => {
                                 type="checkbox"
                                 id="roomCleaning_checkbox"
                                 value={roomCleaning}
+                                checked={roomCleaning}
                                 onChange={(e) => setRoomCleaning(e.target.checked)}
                             />
                             <label className="form-check-label" htmlFor="roomCleaning_checkbox">
@@ -251,7 +283,6 @@ const NewRoom = (props) => {
                                     onChange={imagesChangeHandler}
                                     multiple
                                     disabled={loading}
-                                    required={true}
                                 />
                                 <label className="custom-file-label" htmlFor="customFile">
                                     {images.length > 0 ? "Images are chosen" : "Choose images"}
@@ -274,7 +305,7 @@ const NewRoom = (props) => {
                             className="btn btn-block new-room-btn py-3"
                             disabled={loading}
                         >
-                            {loading ? <ButtonLoader /> : "CREATE"}
+                            {loading ? <ButtonLoader /> : "UPDATE"}
                         </button>
                     </form>
                 </div>
@@ -283,4 +314,4 @@ const NewRoom = (props) => {
     );
 };
 
-export default NewRoom;
+export default UpdateRoom;

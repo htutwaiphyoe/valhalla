@@ -66,7 +66,7 @@ const AllRooms = (props) => {
 
                                         <td>
                                             <>
-                                                <Link href={`/admin/rooms/${room._id}`}>
+                                                <Link href={`/admin/rooms/${room._id}/update`}>
                                                     <a className="btn btn-primary">
                                                         <i className="fa fa-pencil"></i>
                                                     </a>
