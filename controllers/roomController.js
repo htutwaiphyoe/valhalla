@@ -5,6 +5,13 @@ import ErrorHandler from "../utils/errorHandler";
 import catchAsyncError from "../middlewares/catchAsyncError";
 import APIFeatures from "../utils/apiFeatures";
 
+// cloudinary configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 // GET => /api/rooms
 export const getAllRooms = catchAsyncError(async (req, res, next) => {
     // get query
@@ -29,19 +36,19 @@ export const getAllRooms = catchAsyncError(async (req, res, next) => {
 // POST => /api/admin/rooms
 export const createNewRoom = catchAsyncError(async (req, res) => {
     const { images } = req.body;
-
-    const imageLinks = images.map(async (image) => {
-        const result = await cloudinary.v2.uploader.upload(image, {
+    const imageLinks = [];
+    for (let i = 0; i < images.length; i++) {
+        const result = await cloudinary.v2.uploader.upload(images[i], {
             folder: "valhalla/avatar",
             width: "150",
             crop: "scale",
         });
 
-        return {
-            public_id: result.public_id,
+        imageLinks.push({
+            publicId: result.public_id,
             url: result.secure_url,
-        };
-    });
+        });
+    }
 
     req.body.images = imageLinks;
 

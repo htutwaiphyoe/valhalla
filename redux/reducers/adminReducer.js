@@ -26,6 +26,8 @@ export const newRoomReducer = (state = { message: "", error: null, loading: fals
             return updateState(state, { loading: false, message: action.payload.message });
         case adminActionTypes.ADMIN_NEW_ROOM_FAILURE:
             return updateState(state, { loading: false, error: action.payload });
+        case adminActionTypes.ADMIN_NEW_ROOM_RESET:
+            return updateState(state, { message: "", error: null, loading: false });
         case adminActionTypes.CLEAR_ERROR:
             return updateState(state, { error: null });
         default:

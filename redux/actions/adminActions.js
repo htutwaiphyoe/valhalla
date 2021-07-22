@@ -34,6 +34,7 @@ export const createNewRoomByAdmin = (roomData) => async (dispatch) => {
             payload: response.data,
         });
     } catch (err) {
+        console.log(err.response);
         dispatch({
             type: adminActionTypes.ADMIN_NEW_ROOM_FAILURE,
             error: err.response.data.message,
@@ -45,5 +46,12 @@ export const createNewRoomByAdmin = (roomData) => async (dispatch) => {
 export const clearError = () => {
     return {
         type: adminActionTypes.CLEAR_ERROR,
+    };
+};
+
+// new room reset
+export const resetNewRoom = () => {
+    return {
+        type: adminActionTypes.ADMIN_NEW_ROOM_RESET,
     };
 };

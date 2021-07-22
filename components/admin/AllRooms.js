@@ -27,7 +27,17 @@ const AllRooms = (props) => {
                 <Loader />
             ) : (
                 <>
-                    <h1 className="my-5">{rooms.length} Rooms</h1>
+                    <div className="d-flex justify-content-between">
+                        <h1 className="my-5">{rooms.length} Rooms</h1>
+                        <Link href={`/admin/rooms/new`}>
+                            <a
+                                className="btn align-self-center"
+                                style={{ color: "#fff", backgroundColor: "hsl(250, 69%, 61%)" }}
+                            >
+                                <i className="fa fa-plus mr-2"></i>New Room
+                            </a>
+                        </Link>
+                    </div>
 
                     <table className="table table-striped w-100 overflow-auto">
                         <thead style={{ color: "#fff", backgroundColor: "hsl(250, 69%, 61%)" }}>
