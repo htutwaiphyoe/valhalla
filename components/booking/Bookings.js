@@ -70,6 +70,8 @@ const Bookings = (props) => {
                         <th scope="col" className="d-none d-lg-block">
                             Amount
                         </th>
+                        <td className="d-none d-md-table-cell">{`Check In`}</td>
+                        <td className="d-none d-md-table-cell">{`Check Out`}</td>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -79,6 +81,12 @@ const Bookings = (props) => {
                             <tr key={booking._id}>
                                 <td style={{ fontSize: "12.5px" }}>{booking._id}</td>
                                 <td className="d-none d-lg-block">{`$${booking.amountPaid}`}</td>
+                                <td className="d-none d-md-table-cell">{`${formatDate(
+                                    booking.checkInDate
+                                )}`}</td>
+                                <td className="d-none d-md-table-cell">{`${formatDate(
+                                    booking.checkOutDate
+                                )}`}</td>
                                 <td>
                                     <>
                                         <Link href={`/bookings/${booking._id}`}>

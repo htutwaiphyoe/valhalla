@@ -1,0 +1,7 @@
+// All rooms by admin
+export const ADMIN_ALL_ROOMS_REQUEST = "ADMIN_ALL_ROOMS_REQUEST";
+export const ADMIN_ALL_ROOMS_SUCCESS = "ADMIN_ALL_ROOMS_SUCCESS";
+export const ADMIN_ALL_ROOMS_FAILURE = "ADMIN_ALL_ROOMS_FAILURE";
+
+// clear error
+export const CLEAR_ERROR = "CLEAR_ERROR";

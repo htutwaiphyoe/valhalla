@@ -151,3 +151,5 @@ create NewReview component and submit review and show all reviews for a particul
 to show review button check user has booking for that room. create api route for getting bookings by userid and roomid and dispatch when room details load and review button submit
 
 add custom 404 page
+
+create authorization middleware, api router for getting all rooms by admin and All Rooms component

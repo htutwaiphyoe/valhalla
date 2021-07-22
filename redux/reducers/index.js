@@ -4,6 +4,7 @@ import { allRoomsReducer, roomDetailsReducer } from "./roomReducer";
 import * as userReducer from "./userReducer";
 import * as bookingReducer from "./bookingReducer";
 import * as reviewReducer from "./reviewReducer";
+import * as adminReducer from "./adminReducer";
 
 const rootReducer = combineReducers({
     allRooms: allRoomsReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     bookingDetails: bookingReducer.bookingDetailsReducer,
     hasBookings: bookingReducer.hasBookingsReducer,
     newReview: reviewReducer.newReviewReducer,
+    allRoomsByAdmin: adminReducer.allRoomsReducer,
 });
 
 export default rootReducer;

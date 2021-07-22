@@ -49,6 +49,14 @@ const Navigation = (props) => {
                                     style={{ right: "0", minWidth: "5rem" }}
                                     aria-labelledby="dropDownMenuButton"
                                 >
+                                    {session.user.role === "admin" && (
+                                        <>
+                                            <Link href="/admin/rooms">
+                                                <a className="dropdown-item">All rooms</a>
+                                            </Link>
+                                            <hr />
+                                        </>
+                                    )}
                                     <Link href="/bookings">
                                         <a className="dropdown-item">Bookings</a>
                                     </Link>
