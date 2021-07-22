@@ -31,7 +31,6 @@ export const addNewBooking = catchAsyncError(async (req, res, next) => {
 });
 
 // check rooms availability => GET: /api/bookings/check?room=[roomid]&checkInDate=[checkInd]
-
 export const checkRoomAvailability = catchAsyncError(async (req, res, next) => {
     let { room, checkInDate, checkOutDate } = req.query;
 
@@ -139,9 +138,31 @@ export const getBookingsByUserIdAndRoomId = catchAsyncError(async (req, res, nex
 
 // get all bookings by admin => GET: /api/admin/bookings
 export const getAllBookingsByAdmin = catchAsyncError(async (req, res, next) => {
-    const bookings = await Booking.find();
+    const bookings = await Booking.find()
+        .populate({
+            path: "room",
+            select: "name pricePerNight images",
+        })
+        .populate({
+            path: "user",
+            select: "name email",
+        });
     res.status(200).json({
         status: "success",
         bookings,
+    });
+});
+
+// delete booking by admin => DELETE: /api/admin/bookings/:bookingId
+export const deleteBookingByAdmin = catchAsyncError(async (req, res, next) => {
+    const deletedBooking = await Booking.findByIdAndDelete(req.query.id);
+
+    if (!deletedBooking) {
+        return next(new ErrorHandler("No booking found", 404));
+    }
+
+    res.statue(204).json({
+        status: "success",
+        message: "Booking deleted successfully.",
     });
 });

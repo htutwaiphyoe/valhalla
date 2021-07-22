@@ -116,7 +116,7 @@ export const deleteSingleRoom = catchAsyncError(async (req, res, next) => {
     if (!deletedRoom) {
         return next(new ErrorHandler("Room not found with that id", 404));
     }
-    console.log(deletedRoom);
+
     for (let i = 0; i < deletedRoom.images.length; i++) {
         await cloudinary.v2.uploader.destroy(deletedRoom.images[i].publicId);
     }

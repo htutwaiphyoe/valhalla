@@ -7,18 +7,36 @@ import easyinvoice from "easyinvoice";
 import { formatDate } from "../../utils/helpers";
 import Loader from "../ui/Loader/Loader";
 
-import { clearError, getAllBookingsByAdmin } from "../../redux/actions/adminActions";
+import {
+    clearError,
+    getAllBookingsByAdmin,
+    deleteBookingByAdmin,
+    resetDeleteBooking,
+} from "../../redux/actions/adminActions";
 const AllBookings = (props) => {
     const dispatch = useDispatch();
 
     const { bookings, error, loading } = useSelector((state) => state.allBookings);
+    const {
+        message,
+        error: deleteError,
+        loading: deleteLoading,
+    } = useSelector((state) => state.delete);
     useEffect(() => {
         dispatch(getAllBookingsByAdmin());
         if (error) {
             toast.error(error);
             dispatch(clearError());
         }
-    }, [dispatch, error]);
+        if (deleteError) {
+            toast.error(deleteError);
+            dispatch(clearError());
+        }
+        if (message) {
+            toast.success(message);
+            dispatch(resetDeleteBooking());
+        }
+    }, [dispatch, error, deleteError, message]);
 
     const downloadInvoice = async (booking) => {
         const data = {
@@ -62,6 +80,11 @@ const AllBookings = (props) => {
         const result = await easyinvoice.createInvoice(data);
         easyinvoice.download(`booking-invoice.pdf`, result.pdf);
     };
+
+    const buttonClickHandler = (id) => {
+        dispatch(deleteBookingByAdmin(id));
+    };
+
     return (
         <div className="container container-fluid overflow-auto">
             {loading ? (
@@ -102,13 +125,17 @@ const AllBookings = (props) => {
                                                 </Link>
 
                                                 <button
-                                                    className="btn btn-success ml-2"
+                                                    className="btn btn-success ml-2 d-none d-lg-inline"
                                                     onClick={() => downloadInvoice(booking)}
                                                 >
                                                     <i className="fa fa-download"></i>
                                                 </button>
 
-                                                <button className="btn btn-danger ml-2">
+                                                <button
+                                                    className="btn btn-danger ml-2"
+                                                    disabled={deleteLoading}
+                                                    onClick={() => buttonClickHandler(booking._id)}
+                                                >
                                                     <i className="fa fa-trash"></i>
                                                 </button>
                                             </>

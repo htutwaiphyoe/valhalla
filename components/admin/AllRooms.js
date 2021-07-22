@@ -18,7 +18,7 @@ const AllRooms = (props) => {
         message,
         error: deleteRoomError,
         loading: deleteRoomLoading,
-    } = useSelector((state) => state.deleteRoom);
+    } = useSelector((state) => state.delete);
     useEffect(() => {
         dispatch(getAllRoomsByAdmin());
         if (error) {

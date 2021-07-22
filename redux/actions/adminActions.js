@@ -101,6 +101,25 @@ export const getAllBookingsByAdmin = () => async (dispatch) => {
     }
 };
 
+// delete booking by admin
+export const deleteBookingByAdmin = (bookingId) => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_DELETE_BOOKING_REQUEST });
+
+        const response = await valhallaAxios.delete(`/api/admin/bookings/${bookingId}`);
+
+        dispatch({
+            type: adminActionTypes.ADMIN_DELETE_BOOKING_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: adminActionTypes.ADMIN_DELETE_BOOKING_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear error
 export const clearError = () => {
     return {
@@ -126,5 +145,12 @@ export const resetUpdateRoom = () => {
 export const resetDeleteRoom = () => {
     return {
         type: adminActionTypes.ADMIN_DELETE_ROOM_RESET,
+    };
+};
+
+// reset delete booking
+export const resetDeleteBooking = () => {
+    return {
+        type: adminActionTypes.ADMIN_DELETE_BOOKING_RESET,
     };
 };
