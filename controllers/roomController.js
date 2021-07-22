@@ -40,8 +40,6 @@ export const createNewRoom = catchAsyncError(async (req, res) => {
     for (let i = 0; i < images.length; i++) {
         const result = await cloudinary.v2.uploader.upload(images[i], {
             folder: "valhalla/avatar",
-            width: "150",
-            crop: "scale",
         });
 
         imageLinks.push({
@@ -76,18 +74,38 @@ export const getSingleRoom = catchAsyncError(async (req, res, next) => {
 
 // PATCH => /api/rooms/[id]
 export const updateSingleRoom = catchAsyncError(async (req, res, next) => {
-    const updatedRoom = await Room.findByIdAndUpdate(req.query.id, req.body, {
+    const room = await Room.findById(req.query.id);
+
+    if (!room) {
+        return next(new ErrorHandler("No room found!", 404));
+    }
+
+    if (req.body.images) {
+        for (let i = 0; i <= room.images.length; i++) {
+            await cloudinary.v2.uploader.destroy(room.images[i].publicId);
+        }
+
+        const imageLinks = [];
+        for (let i = 0; i < req.body.images.length; i++) {
+            const result = await cloudinary.v2.uploader.upload(req.body.images[i], {
+                folder: "valhalla/avatar",
+            });
+
+            imageLinks.push({
+                publicId: result.public_id,
+                url: result.secure_url,
+            });
+        }
+        req.body.images = imageLinks;
+    }
+    await Room.findByIdAndUpdate(req.query.id, req.body, {
         new: true,
         runValidators: true,
     });
-    if (!updatedRoom) {
-        return next(new ErrorHandler("Room not found with that id", 404));
-    }
+
     res.status(200).json({
         status: "success",
-        data: {
-            data: updatedRoom,
-        },
+        message: "Room updated successfully.",
     });
 });
 

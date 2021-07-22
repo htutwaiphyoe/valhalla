@@ -42,6 +42,29 @@ export const createNewRoomByAdmin = (roomData) => async (dispatch) => {
     }
 };
 
+// update room by admin
+export const updateRoomByAdmin = (roomId, roomData) => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_UPDATE_ROOM_REQUEST });
+        const response = await valhallaAxios.patch(`/api/admin/rooms/${roomId}`, roomData, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        dispatch({
+            type: adminActionTypes.ADMIN_UPDATE_ROOM_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        console.log(err.response);
+        dispatch({
+            type: adminActionTypes.ADMIN_UPDATE_ROOM_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear error
 export const clearError = () => {
     return {
@@ -53,5 +76,12 @@ export const clearError = () => {
 export const resetNewRoom = () => {
     return {
         type: adminActionTypes.ADMIN_NEW_ROOM_RESET,
+    };
+};
+
+// reset update room
+export const resetNewRoom = () => {
+    return {
+        type: adminActionTypes.ADMIN_UPDATE_ROOM_RESET,
     };
 };

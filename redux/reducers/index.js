@@ -22,6 +22,7 @@ const rootReducer = combineReducers({
     newReview: reviewReducer.newReviewReducer,
     allRoomsByAdmin: adminReducer.allRoomsReducer,
     newRoom: adminReducer.newRoomReducer,
+    updateRoom: adminReducer.updateRoomReducer,
 });
 
 export default rootReducer;

@@ -34,3 +34,21 @@ export const newRoomReducer = (state = { message: "", error: null, loading: fals
             return state;
     }
 };
+
+// update room reducer
+export const updateRoomReducer = (state = { message: "", error: null, loading: false }, action) => {
+    switch (action.type) {
+        case adminActionTypes.ADMIN_UPDATE_ROOM_REQUEST:
+            return updateState(state, { loading: true });
+        case adminActionTypes.ADMIN_UPDATE_ROOM_SUCCESS:
+            return updateState(state, { loading: false, message: action.payload.message });
+        case adminActionTypes.ADMIN_UPDATE_ROOM_FAILURE:
+            return updateState(state, { loading: false, error: action.payload });
+        case adminActionTypes.ADMIN_UPDATE_ROOM_RESET:
+            return updateState(state, { message: "", error: null, loading: false });
+        case adminActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};
