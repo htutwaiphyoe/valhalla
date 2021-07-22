@@ -83,6 +83,24 @@ export const deleteRoomByAdmin = (roomId) => async (dispatch) => {
     }
 };
 
+// get all bookings by admin
+export const getAllBookingsByAdmin = () => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_ALL_BOOKINGS_REQUEST });
+        const response = await valhallaAxios.get(`/api/admin/bookings`);
+
+        dispatch({
+            type: adminActionTypes.ADMIN_ALL_BOOKINGS_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: adminActionTypes.ADMIN_ALL_BOOKINGS_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear error
 export const clearError = () => {
     return {

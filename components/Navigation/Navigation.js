@@ -52,7 +52,10 @@ const Navigation = (props) => {
                                     {session.user.role === "admin" && (
                                         <>
                                             <Link href="/admin/rooms">
-                                                <a className="dropdown-item">All rooms</a>
+                                                <a className="dropdown-item">Rooms</a>
+                                            </Link>
+                                            <Link href="/admin/bookings">
+                                                <a className="dropdown-item">Bookings</a>
                                             </Link>
                                             <hr />
                                         </>

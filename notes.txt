@@ -157,3 +157,7 @@ create authorization middleware, api router for getting all rooms by admin and A
 create api route for new room /api/admin/rooms, controller, reducer, actionTypes and actions and NewRoom component
 
 create api route for update room /api/admin/rooms/:roomId, controller, reducer, actionTypes and actions and UpdateRoom component
+
+create api route for delete room /api/admin/rooms/:roomId, controller, reducer, actionTypes and actions
+
+create api router for get all bookings /api/admin/bookings, controller, reducer, actionTypes, actions and AllBookings component and page

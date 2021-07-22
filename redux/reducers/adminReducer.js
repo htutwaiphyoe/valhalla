@@ -70,3 +70,22 @@ export const deleteRoomReducer = (state = { message: "", error: null, loading: f
             return state;
     }
 };
+
+// All bookings reducer
+export const allBookingsReducer = (
+    state = { bookings: [], error: null, loading: false },
+    action
+) => {
+    switch (action.type) {
+        case adminActionTypes.ADMIN_ALL_BOOKINGS_REQUEST:
+            return updateState(state, { loading: true });
+        case adminActionTypes.ADMIN_ALL_BOOKINGS_SUCCESS:
+            return updateState(state, { loading: false, bookings: action.payload.bookings });
+        case adminActionTypes.ADMIN_ALL_BOOKINGS_FAILURE:
+            return updateState(state, { loading: false, error: action.payload });
+        case adminActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};

@@ -136,3 +136,12 @@ export const getBookingsByUserIdAndRoomId = catchAsyncError(async (req, res, nex
         hasBookings,
     });
 });
+
+// get all bookings by admin => GET: /api/admin/bookings
+export const getAllBookingsByAdmin = catchAsyncError(async (req, res, next) => {
+    const bookings = await Booking.find();
+    res.status(200).json({
+        status: "success",
+        bookings,
+    });
+});
