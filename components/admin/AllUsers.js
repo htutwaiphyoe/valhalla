@@ -4,12 +4,22 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 
 import Loader from "../ui/Loader/Loader";
-import { getAllUsersByAdmin, clearError } from "../../redux/actions/adminActions";
+import {
+    getAllUsersByAdmin,
+    clearError,
+    deleteUserByAdmin,
+    resetDeleteUser,
+} from "../../redux/actions/adminActions";
 
 const AllRooms = (props) => {
     const dispatch = useDispatch();
 
     const { users, error, loading } = useSelector((state) => state.allUsers);
+    const {
+        message,
+        error: deleteError,
+        loading: deleteLoading,
+    } = useSelector((state) => state.delete);
 
     useEffect(() => {
         dispatch(getAllUsersByAdmin());
@@ -17,7 +27,20 @@ const AllRooms = (props) => {
             toast.error(error);
             dispatch(clearError());
         }
-    }, [dispatch, error]);
+
+        if (deleteError) {
+            toast.error(deleteError);
+            dispatch(clearError());
+        }
+        if (message) {
+            toast.error(message);
+            dispatch(resetDeleteUser());
+        }
+    }, [dispatch, error, deleteError, message]);
+
+    const deleteHandler = (id) => {
+        dispatch(deleteUserByAdmin(id));
+    };
 
     return (
         <div className="container container-fluid overflow-auto">
@@ -62,7 +85,11 @@ const AllRooms = (props) => {
                                                     </a>
                                                 </Link>
 
-                                                <button className="btn btn-danger ml-2">
+                                                <button
+                                                    className="btn btn-danger ml-2"
+                                                    onClick={() => deleteHandler(user._id)}
+                                                    disabled={deleteLoading}
+                                                >
                                                     <i className="fa fa-trash"></i>
                                                 </button>
                                             </>

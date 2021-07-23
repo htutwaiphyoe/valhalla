@@ -8,6 +8,7 @@ import {
     getAllRoomsByAdmin,
     deleteRoomByAdmin,
     resetDeleteRoom,
+    clearError,
 } from "../../redux/actions/adminActions";
 
 const AllRooms = (props) => {

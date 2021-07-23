@@ -183,6 +183,25 @@ export const updateUserByAdmin = (userId, userData) => async (dispatch) => {
     }
 };
 
+// delete user by admin
+export const deleteUserByAdmin = (userId) => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_DELETE_USER_REQUEST });
+
+        const response = await valhallaAxios.delete(`/api/admin/users/${userId}`);
+
+        dispatch({
+            type: adminActionTypes.ADMIN_DELETE_USER_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: adminActionTypes.ADMIN_DELETE_USER_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear error
 export const clearError = () => {
     return {
@@ -222,5 +241,12 @@ export const resetDeleteBooking = () => {
 export const resetUpdateUser = () => {
     return {
         type: adminActionTypes.ADMIN_UPDATE_USER_RESET,
+    };
+};
+
+// reset delete user
+export const resetDeleteUser = () => {
+    return {
+        type: adminActionTypes.ADMIN_DELETE_USER_RESET,
     };
 };

@@ -1,6 +1,4 @@
 import cloudinary from "cloudinary";
-import absoluteUrl from "next-absolute-url";
-import crypto from "crypto";
 
 import User from "../models/user";
 import catchAsyncError from "../middlewares/catchAsyncError";
@@ -53,5 +51,20 @@ export const updateUserByAdmin = catchAsyncError(async (req, res, next) => {
     res.status(200).json({
         status: "success",
         message: "User updated successfully.",
+    });
+});
+
+// delete user by admin => DELETE: /api/admin/users/:id
+export const deleteUserByAdmin = catchAsyncError(async (req, res, next) => {
+    const deletedUser = await User.findByIdAndDelete(req.query.id);
+
+    if (!deletedUser) {
+        return next(new ErrorHandler("No user found!", 404));
+    }
+    await cloudinary.v2.uploader.destroy(deletedUser.avatar.public_id);
+
+    res.status(204).json({
+        status: "success",
+        message: "User deleted successfully.",
     });
 });
