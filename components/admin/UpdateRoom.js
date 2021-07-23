@@ -28,7 +28,7 @@ const UpdateRoom = (props) => {
     const [images, setImages] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
 
-    const { loading, error, message } = useSelector((state) => state.updateRoom);
+    const { loading, error, message } = useSelector((state) => state.update);
 
     useEffect(() => {
         if (error) {
@@ -132,7 +132,7 @@ const UpdateRoom = (props) => {
                         <div className="form-group">
                             <label htmlFor="price_field">Price Per Night</label>
                             <input
-                                type="number"
+                                type="text"
                                 id="price_field"
                                 className="form-control"
                                 value={pricePerNight}

@@ -138,6 +138,51 @@ export const getAllUsersByAdmin = () => async (dispatch) => {
     }
 };
 
+// get user details by admin
+export const getUserDetailsByAdmin = (cookie, id) => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_USER_DETAILS_REQUEST });
+        const response = await valhallaAxios.get(`/api/admin/users/${id}`, {
+            headers: {
+                cookie,
+            },
+        });
+
+        dispatch({
+            type: adminActionTypes.ADMIN_USER_DETAILS_SUCCESS,
+            payload: response.data.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: adminActionTypes.ADMIN_USER_DETAILS_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
+// update user by admin
+export const updateUserByAdmin = (userId, userData) => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_UPDATE_USER_REQUEST });
+
+        const response = await valhallaAxios.patch(`/api/admin/users/${userId}`, userData, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        dispatch({
+            type: adminActionTypes.ADMIN_UPDATE_USER_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: adminActionTypes.ADMIN_UPDATE_USER_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear error
 export const clearError = () => {
     return {
@@ -170,5 +215,12 @@ export const resetDeleteRoom = () => {
 export const resetDeleteBooking = () => {
     return {
         type: adminActionTypes.ADMIN_DELETE_BOOKING_RESET,
+    };
+};
+
+// reset update user
+export const resetUpdateUser = () => {
+    return {
+        type: adminActionTypes.ADMIN_UPDATE_USER_RESET,
     };
 };

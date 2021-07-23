@@ -165,3 +165,7 @@ create api router for get all bookings /api/admin/bookings, controller, reducer,
 create api route for delete booking /api/admin/bookings/:bookingId, controller, reducer, actions and actionTypes
 
 create booking details page for admin
+
+create api route for getting all users /api/admin/users, controller, reducer, actions and actionTypes and AllUsers component and page
+
+create api route for update user by admin /api/admin/users/:userId, controller, reducer, actions, actionTypes and UpdateUser component and page

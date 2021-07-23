@@ -105,7 +105,7 @@ const NewRoom = (props) => {
                         <div className="form-group">
                             <label htmlFor="price_field">Price Per Night</label>
                             <input
-                                type="number"
+                                type="text"
                                 id="price_field"
                                 className="form-control"
                                 value={pricePerNight}

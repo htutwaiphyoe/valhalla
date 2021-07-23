@@ -22,10 +22,11 @@ const rootReducer = combineReducers({
     newReview: reviewReducer.newReviewReducer,
     allRoomsByAdmin: adminReducer.allRoomsReducer,
     newRoom: adminReducer.newRoomReducer,
-    updateRoom: adminReducer.updateRoomReducer,
+    update: adminReducer.updateReducer,
     delete: adminReducer.deleteReducer,
     allBookings: adminReducer.allBookingsReducer,
     allUsers: adminReducer.allUsersReducer,
+    userDetails: adminReducer.userDetailsReducer,
 });
 
 export default rootReducer;

@@ -35,16 +35,20 @@ export const newRoomReducer = (state = { message: "", error: null, loading: fals
     }
 };
 
-// update room reducer
-export const updateRoomReducer = (state = { message: "", error: null, loading: false }, action) => {
+// update reducer
+export const updateReducer = (state = { message: "", error: null, loading: false }, action) => {
     switch (action.type) {
         case adminActionTypes.ADMIN_UPDATE_ROOM_REQUEST:
+        case adminActionTypes.ADMIN_UPDATE_USER_REQUEST:
             return updateState(state, { loading: true });
         case adminActionTypes.ADMIN_UPDATE_ROOM_SUCCESS:
+        case adminActionTypes.ADMIN_UPDATE_USER_SUCCESS:
             return updateState(state, { loading: false, message: action.payload.message });
         case adminActionTypes.ADMIN_UPDATE_ROOM_FAILURE:
+        case adminActionTypes.ADMIN_UPDATE_USER_FAILURE:
             return updateState(state, { loading: false, error: action.payload });
         case adminActionTypes.ADMIN_UPDATE_ROOM_RESET:
+        case adminActionTypes.ADMIN_UPDATE_USER_RESET:
             return updateState(state, { message: "", error: null, loading: false });
         case adminActionTypes.CLEAR_ERROR:
             return updateState(state, { error: null });
@@ -102,6 +106,22 @@ export const allUsersReducer = (state = { users: [], error: null, loading: false
         case adminActionTypes.ADMIN_ALL_USERS_SUCCESS:
             return updateState(state, { loading: false, users: action.payload.users });
         case adminActionTypes.ADMIN_ALL_USERS_FAILURE:
+            return updateState(state, { loading: false, error: action.payload });
+        case adminActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};
+
+// user details reducer
+export const userDetailsReducer = (state = { user: null, error: null, loading: false }, action) => {
+    switch (action.type) {
+        case adminActionTypes.ADMIN_USER_DETAILS_REQUEST:
+            return updateState(state, { loading: true });
+        case adminActionTypes.ADMIN_USER_DETAILS_SUCCESS:
+            return updateState(state, { loading: false, user: action.payload.user });
+        case adminActionTypes.ADMIN_USER_DETAILS_FAILURE:
             return updateState(state, { loading: false, error: action.payload });
         case adminActionTypes.CLEAR_ERROR:
             return updateState(state, { error: null });
