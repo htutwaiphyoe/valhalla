@@ -53,6 +53,7 @@ export const getAllReviewsByAdmin = catchAsyncError(async (req, res, next) => {
         if (room.reviews.length > 0) {
             room.reviews.forEach((review) => {
                 reviews.push({
+                    roomId: room._id,
                     roomName: room.name,
                     data: review,
                 });
@@ -65,5 +66,39 @@ export const getAllReviewsByAdmin = catchAsyncError(async (req, res, next) => {
         data: {
             reviews,
         },
+    });
+});
+
+// delete reviews by admin => DELETE: /api/admin/reivews/:id?roomId={roomId}
+export const deleteReviewByAdmin = catchAsyncError(async (req, res, next) => {
+    const room = await Room.findById(req.query.roomId);
+
+    if (!room) {
+        return next(new ErrorHandler("No room found!", 404));
+    }
+
+    const reviews = room.reviews.filter(
+        (review) => review.id.toString() !== req.query.id.toString()
+    );
+
+    const numOfReviews = reviews.length;
+
+    const ratings =
+        reviews.length > 0 ? reviews.reduce((acc, curr) => acc + curr.rating, 0) / numOfReviews : 0;
+
+    const roomData = {
+        reviews,
+        numOfReviews,
+        ratings,
+    };
+
+    const updatedRoom = await Room.findByIdAndUpdate(req.query.roomId, roomData, {
+        new: true,
+        runValidators: true,
+    });
+
+    res.status(201).json({
+        status: "success",
+        message: "Review is deleted successfully.",
     });
 });

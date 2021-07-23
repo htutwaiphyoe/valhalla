@@ -63,7 +63,7 @@ export const deleteUserByAdmin = catchAsyncError(async (req, res, next) => {
     }
     await cloudinary.v2.uploader.destroy(deletedUser.avatar.public_id);
 
-    res.status(204).json({
+    res.status(201).json({
         status: "success",
         message: "User deleted successfully.",
     });

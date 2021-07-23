@@ -161,7 +161,7 @@ export const deleteBookingByAdmin = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler("No booking found", 404));
     }
 
-    res.statue(204).json({
+    res.status(201).json({
         status: "success",
         message: "Booking deleted successfully.",
     });

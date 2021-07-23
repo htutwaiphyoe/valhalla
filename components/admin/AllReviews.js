@@ -3,17 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import Loader from "../ui/Loader/Loader";
-import { getAllReviewsByAdmin, clearError } from "../../redux/actions/adminActions";
+import {
+    getAllReviewsByAdmin,
+    clearError,
+    resetDeleteReview,
+    deleteReviewByAdmin,
+} from "../../redux/actions/adminActions";
 
 const AllRooms = (props) => {
     const dispatch = useDispatch();
 
     const { reviews, error, loading } = useSelector((state) => state.allReviews);
-    // const {
-    //     message,
-    //     error: deleteRoomError,
-    //     loading: deleteRoomLoading,
-    // } = useSelector((state) => state.delete);
+    const {
+        message,
+        error: deleteError,
+        loading: deleteLoading,
+    } = useSelector((state) => state.delete);
 
     useEffect(() => {
         dispatch(getAllReviewsByAdmin());
@@ -22,19 +27,19 @@ const AllRooms = (props) => {
             dispatch(clearError());
         }
 
-        // if (message) {
-        //     toast.success(message);
-        //     dispatch(resetDeleteRoom());
-        // }
-        // if (deleteRoomError) {
-        //     toast.error(deleteRoomError);
-        //     dispatch(clearError());
-        // }
-    }, [dispatch, error]);
+        if (message) {
+            toast.success(message);
+            dispatch(resetDeleteReview());
+        }
+        if (deleteError) {
+            toast.error(deleteError);
+            dispatch(clearError());
+        }
+    }, [dispatch, error, message, deleteError]);
 
-    // const buttonClickHandler = (id) => {
-    //     dispatch(deleteRoomByAdmin(id));
-    // };
+    const buttonClickHandler = (roomId, reviewId) => {
+        dispatch(deleteReviewByAdmin(roomId, reviewId));
+    };
 
     return (
         <div className="container container-fluid overflow-auto">
@@ -77,8 +82,13 @@ const AllRooms = (props) => {
                                         <td>
                                             <button
                                                 className="btn btn-danger ml-2"
-                                                // onClick={() => buttonClickHandler(room._id)}
-                                                // disabled={deleteRoomLoading}
+                                                onClick={() =>
+                                                    buttonClickHandler(
+                                                        review.roomId,
+                                                        review.data._id
+                                                    )
+                                                }
+                                                disabled={deleteLoading}
                                             >
                                                 <i className="fa fa-trash"></i>
                                             </button>

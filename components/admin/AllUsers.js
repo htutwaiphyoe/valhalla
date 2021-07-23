@@ -33,7 +33,7 @@ const AllRooms = (props) => {
             dispatch(clearError());
         }
         if (message) {
-            toast.error(message);
+            toast.success(message);
             dispatch(resetDeleteUser());
         }
     }, [dispatch, error, deleteError, message]);

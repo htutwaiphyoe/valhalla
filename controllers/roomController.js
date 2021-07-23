@@ -120,7 +120,7 @@ export const deleteSingleRoom = catchAsyncError(async (req, res, next) => {
     for (let i = 0; i < deletedRoom.images.length; i++) {
         await cloudinary.v2.uploader.destroy(deletedRoom.images[i].publicId);
     }
-    res.status(204).json({
+    res.status(201).json({
         status: "success",
         message: "Room deleted successfully.",
     });

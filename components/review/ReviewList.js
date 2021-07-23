@@ -3,8 +3,8 @@ const ReviewList = ({ reviews }) => {
         <div className="reviews w-75">
             <h3>Reviews:</h3>
             <hr />
-            {reviews.map((review) => (
-                <div className="review-card my-3">
+            {reviews.map((review, i) => (
+                <div className="review-card my-3" key={i}>
                     <div className="rating-outer">
                         <div
                             className="rating-inner"

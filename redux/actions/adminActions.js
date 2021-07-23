@@ -220,6 +220,27 @@ export const getAllReviewsByAdmin = (id) => async (dispatch) => {
     }
 };
 
+// delete review by admin
+export const deleteReviewByAdmin = (roomId, reviewId) => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_DELETE_REVIEW_REQUEST });
+
+        const response = await valhallaAxios.delete(
+            `/api/admin/reviews/${reviewId}?roomId=${roomId}`
+        );
+
+        dispatch({
+            type: adminActionTypes.ADMIN_DELETE_REVIEW_SUCCESS,
+            payload: response.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: adminActionTypes.ADMIN_DELETE_REVIEW_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear error
 export const clearError = () => {
     return {
@@ -266,5 +287,12 @@ export const resetUpdateUser = () => {
 export const resetDeleteUser = () => {
     return {
         type: adminActionTypes.ADMIN_DELETE_USER_RESET,
+    };
+};
+
+// reset delete review
+export const resetDeleteReview = () => {
+    return {
+        type: adminActionTypes.ADMIN_DELETE_REVIEW_RESET,
     };
 };
