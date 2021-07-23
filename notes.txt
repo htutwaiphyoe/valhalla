@@ -175,3 +175,5 @@ create api route for delete user /api/admin/users/:userId, controller, reducer, 
 create api route for getting all reviews /api/admin/reviews, controller, reducer, actions and actionTypes and AllReviews component and page
 
 create api route for delete review /api/admin/reviews/:reviewId, controller, reducer, actions and actionTypes
+
+to export nextjs project as static website, no server-side code must not be included, first npm run build and add npm script "export": "next export" and run it npm run export. it creates out folder for static website and use it to deploy on static server
