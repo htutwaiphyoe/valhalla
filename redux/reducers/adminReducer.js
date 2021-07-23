@@ -133,3 +133,19 @@ export const userDetailsReducer = (state = { user: null, error: null, loading: f
             return state;
     }
 };
+
+// room reviews reducer
+export const allReviewsReducer = (state = { reviews: [], error: null, loading: false }, action) => {
+    switch (action.type) {
+        case adminActionTypes.ADMIN_ALL_REVIEWS_REQUEST:
+            return updateState(state, { loading: true });
+        case adminActionTypes.ADMIN_ALL_REVIEWS_SUCCESS:
+            return updateState(state, { loading: false, reviews: action.payload.reviews });
+        case adminActionTypes.ADMIN_ALL_REVIEWS_FAILURE:
+            return updateState(state, { loading: false, error: action.payload });
+        case adminActionTypes.CLEAR_ERROR:
+            return updateState(state, { error: null });
+        default:
+            return state;
+    }
+};

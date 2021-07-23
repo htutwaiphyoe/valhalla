@@ -2,6 +2,7 @@ import Room from "../models/room";
 import ErrorHandler from "../utils/errorHandler";
 import catchAsyncError from "../middlewares/catchAsyncError";
 
+// create new reivew => POST: /api/reviews
 export const createNewReview = catchAsyncError(async (req, res, next) => {
     const { rating, comment, roomId } = req.body;
 
@@ -39,5 +40,30 @@ export const createNewReview = catchAsyncError(async (req, res, next) => {
     res.status(201).json({
         status: "success",
         message: "Your review has been saved.",
+    });
+});
+
+// get all reviews by admin => GET: /api/admin/reviews
+export const getAllReviewsByAdmin = catchAsyncError(async (req, res, next) => {
+    const rooms = await Room.find();
+
+    const reviews = [];
+
+    rooms.forEach((room) => {
+        if (room.reviews.length > 0) {
+            room.reviews.forEach((review) => {
+                reviews.push({
+                    roomName: room.name,
+                    data: review,
+                });
+            });
+        }
+    });
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            reviews,
+        },
     });
 });

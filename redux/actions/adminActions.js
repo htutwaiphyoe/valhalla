@@ -202,6 +202,24 @@ export const deleteUserByAdmin = (userId) => async (dispatch) => {
     }
 };
 
+// get room reviews by admin
+export const getAllReviewsByAdmin = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: adminActionTypes.ADMIN_ALL_REVIEWS_REQUEST });
+        const response = await valhallaAxios.get(`/api/admin/reviews`);
+
+        dispatch({
+            type: adminActionTypes.ADMIN_ALL_REVIEWS_SUCCESS,
+            payload: response.data.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: adminActionTypes.ADMIN_ALL_REVIEWS_FAILURE,
+            error: err.response.data.message,
+        });
+    }
+};
+
 // clear error
 export const clearError = () => {
     return {

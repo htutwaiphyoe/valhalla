@@ -3,15 +3,12 @@ import nc from "next-connect";
 import dbConnect from "../../../../config/dbConnect";
 import onError from "../../../../middlewares/globalError";
 import { checkUserisAuthenticated, checkUserisAuthorized } from "../../../../middlewares/auth";
-import { updateSingleRoom, deleteSingleRoom } from "../../../../controllers/roomController";
+import { getAllReviewsByAdmin } from "../../../../controllers/reviewController";
 
 const handler = nc({ onError });
 
 dbConnect();
 
-handler
-    .use(checkUserisAuthenticated, checkUserisAuthorized("admin"))
-    .patch(updateSingleRoom)
-    .delete(deleteSingleRoom);
+handler.use(checkUserisAuthenticated, checkUserisAuthorized("admin")).get(getAllReviewsByAdmin);
 
 export default handler;

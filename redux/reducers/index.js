@@ -27,6 +27,7 @@ const rootReducer = combineReducers({
     allBookings: adminReducer.allBookingsReducer,
     allUsers: adminReducer.allUsersReducer,
     userDetails: adminReducer.userDetailsReducer,
+    allReviews: adminReducer.allReviewsReducer,
 });
 
 export default rootReducer;

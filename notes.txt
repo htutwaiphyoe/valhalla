@@ -171,3 +171,5 @@ create api route for getting all users /api/admin/users, controller, reducer, ac
 create api route for update user by admin /api/admin/users/:userId, controller, reducer, actions, actionTypes and UpdateUser component and page
 
 create api route for delete user /api/admin/users/:userId, controller, reducer, actions and actionTypes
+
+create api route for getting room reviews /api/admin/rooms/:id/reviews, controller, reducer, actions and actionTypes and RoomReviews component and page
